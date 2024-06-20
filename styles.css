@@ -1,0 +1,474 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Adjust the opacity (0.6 for 60% opacity) */
+    z-index: -1;
+}
+
+a {
+    color: white;
+    text-decoration: none; /* This removes the underline, if you prefer */
+}
+
+a:hover {
+    color: white; /* Ensure the color remains white on hover */
+    text-decoration: underline; /* Optionally add underline on hover */
+}
+
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header styles */
+header {
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+}
+
+header nav ul {
+    display: flex;
+    list-style-type: none;
+}
+
+header nav ul li {
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: #ffcc00; /* Change to your highlight color */
+}
+
+/* Introduction section styles */
+.intro {
+    padding: 100px 0;
+    text-align: center;
+}
+
+.intro h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.intro p {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto 30px;
+}
+
+.intro .btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #ffcc00; /* Change to your highlight color */
+    color: #1a1a1a;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.intro .btn:hover {
+    background-color: #e6b800; /* Lighter shade of highlight color */
+}
+
+/* Skills section styles */
+.skills {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.skills h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+.skills-icons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.skill {
+    margin: 0 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.skill i {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: #ffcc00; /* Icon color */
+}
+
+.skill span {
+    display: block;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.skill:hover {
+    transform: translateY(-5px);
+}
+
+/* Footer styles */
+footer {
+    background-color: #333333;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.social-links {
+    list-style-type: none;
+    padding: 0;
+}
+
+.social-links li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.social-links li a {
+    color: #ffffff;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-links li a:hover {
+    color: #ffcc00; /* Change to your highlight color */
+}
+
+/* About section styles */
+.about {
+    padding: 100px 0;
+    text-align: center;
+    background-color: #1a1a1a; /* Dark background */
+    color: #ffffff;
+}
+
+.about h2 {
+    font-size: 3rem;
+    margin-bottom: 40px;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+/* Skills section styles (similar to Home page) */
+
+/* Footer styles (similar to Home page) */
+
+/* Projects section styles */
+.projects {
+    padding: 100px 0;
+    background-color: #1a1a1a; /* Dark background */
+    color: #ffffff;
+    text-align: center;
+}
+
+.projects h2 {
+    font-size: 3rem;
+    margin-bottom: 40px;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 40px;
+    justify-items: center;
+    margin-top: 40px;
+}
+
+.project-item {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.project-item:hover {
+    transform: translateY(-5px);
+}
+
+.project-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.project-item p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+.project-item a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.project-item a:hover {
+    background-color: #45a049;
+}
+
+/* Footer styles (similar to Home and About pages) */
+
+/* Blog section styles */
+.blog {
+    padding: 100px 0;
+    background-color: #1a1a1a; /* Dark background */
+    color: #ffffff;
+    text-align: center;
+}
+
+.blog h2 {
+    font-size: 3rem;
+    margin-bottom: 40px;
+}
+
+.blog-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 40px;
+    justify-items: center;
+    margin-top: 40px;
+}
+
+.blog-post {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    text-align: left;
+}
+
+.blog-post:hover {
+    transform: translateY(-5px);
+}
+
+.blog-post h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.blog-post p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+.blog-post .post-date {
+    color: #4CAF50; /* Accent color */
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.blog-post .post-category {
+    background-color: #4CAF50; /* Accent color */
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.blog-post a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Accent color */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.blog-post a:hover {
+    background-color: #45a049; /* Darker shade of accent color */
+}
+
+/* Footer styles (similar to Home, About, and Projects pages) */
+
+/* Contact section styles */
+.contact {
+    padding: 100px 0;
+    background-color: #1a1a1a; /* Dark background */
+    color: #ffffff;
+    text-align: center;
+}
+
+.contact h2 {
+    font-size: 3rem;
+    margin-bottom: 40px;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: grid;
+    grid-gap: 20px;
+    text-align: left;
+}
+
+.contact-form .form-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+}
+
+.contact-form label {
+    font-size: 1.2rem;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form input[type="tel"],
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.contact-form textarea {
+    resize: vertical;
+}
+
+.contact-form button {
+    background-color: #4CAF50; /* Accent color */
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #45a049; /* Darker shade of accent color */
+}
+
+/* Footer styles (similar to Home, About, Projects, and Blog pages) */
+
+header nav ul li a:hover {
+    color: #ffcc00; /* Highlight color */
+    position: relative;
+}
+
+header nav ul li a:hover::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: #ffcc00; /* Yellow color */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+header nav ul li a:hover::after {
+    width: 100%;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background: url('bing_image_ai_background.jpg') center/cover no-repeat;
+    background-color: rgba(0, 0, 0, 0.8); /* Black overlay with 80% opacity */
+    color: #ffffff;
+}
+
+
+header nav ul li a:hover {
+    color: #ffcc00; /* Highlight color */
+    position: relative;
+}
+
+header nav ul li a:hover::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: #ffcc00; /* Yellow color */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+header nav ul li a:hover::after {
+    width: 100%;
+}
+
+
+.intro .btn:hover,
+.project-item a:hover,
+.blog-post a:hover,
+.social-links li a:hover {
+    background-color: #e6b800; /* Lighter shade of highlight color */
+}
+
+.skill:hover {
+    transform: translateY(-5px);
+}
+
+.blog-post:hover,
+.project-item:hover {
+    transform: translateY(-5px);
+}
+
+.contact-form button:hover {
+    background-color: #45a049; /* Darker shade of accent color */
+}
+
+.social-links li a:hover {
+    color: #ffcc00; /* Change to your highlight color */
+}

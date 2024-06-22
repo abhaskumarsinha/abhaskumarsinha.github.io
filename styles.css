@@ -472,3 +472,67 @@ header nav ul li a:hover::after {
 .social-links li a:hover {
     color: #ffcc00; /* Change to your highlight color */
 }
+
+/* Testimonials section styles */
+.testimonials {
+    padding: 80px 0;
+    background-color: #1a1a1a; /* Dark background */
+    color: #ffffff;
+    text-align: center;
+}
+
+.testimonials h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 40px;
+    justify-items: center;
+}
+
+.testimonial {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.testimonial p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+.testimonial span {
+    font-size: 1rem;
+    color: #ffcc00; /* Highlight color */
+}
+
+.testimonial:hover {
+    transform: translateY(-5px);
+}
+
+
+
+.about-content ul, 
+.about-content li {
+    text-align: left;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+}
+
+.about-content ul {
+    padding-left: 20px; /* Adjust as needed for indentation */
+    list-style: disc; /* Adjust as needed for bullet style */
+}
+
+.about-content li {
+    margin-bottom: 10px; /* Adjust as needed for spacing between items */
+}

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <!-- Dark Background -->
+  <rect width="600" height="600" fill="#0d0d0f"></rect>
+
+  <!-- Particle network -->
+  <g stroke="#333" stroke-width="1">
+    <line x1="100" y1="120" x2="200" y2="80"></line>
+    <line x1="200" y1="80" x2="300" y2="150"></line>
+    <line x1="300" y1="150" x2="450" y2="80"></line>
+    <line x1="450" y1="80" x2="500" y2="220"></line>
+    <line x1="100" y1="120" x2="150" y2="220"></line>
+    <line x1="150" y1="220" x2="300" y2="150"></line>
+    <line x1="300" y1="150" x2="400" y2="300"></line>
+    <line x1="400" y1="300" x2="500" y2="220"></line>
+  </g>
+  <g fill="#666">
+    <circle cx="100" cy="120" r="4"></circle>
+    <circle cx="200" cy="80" r="4"></circle>
+    <circle cx="300" cy="150" r="4"></circle>
+    <circle cx="450" cy="80" r="4"></circle>
+    <circle cx="500" cy="220" r="4"></circle>
+    <circle cx="150" cy="220" r="4"></circle>
+    <circle cx="400" cy="300" r="4"></circle>
+  </g>
+
+  <!-- Logo -->
+  <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Space Grotesk, sans-serif" font-size="120" font-weight="700" fill="url(#asGradient)" stroke="#ffffff" stroke-width="2" paint-order="stroke">
+    AS
+  </text>
+
+  <!-- Gradient for Logo -->
+  <defs>
+    <linearGradient id="asGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f6ff"></stop>
+      <stop offset="100%" stop-color="#7000ff"></stop>
+    </linearGradient>
+  </defs>
+</svg>

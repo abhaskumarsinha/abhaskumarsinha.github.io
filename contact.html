@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Abhas Kumar Sinha</title>
+	
+    <!-- Favicon -->
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+
+    <!-- Fonts & Styles -->
+    <link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="extras.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="particles-background"></div>
+    <div class="background-overlay"></div>
+    
+    <header class="nav-header">
+        <nav>
+            <div class="logo">AS</div>
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+				<li><a href="#more">More Pokémons</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Page Hero Section -->
+        <section class="page-hero">
+            <div class="glitch-container">
+                <h1 class="glitch" data-text="Get In Touch">Get In Touch</h1>
+            </div>
+            <p class="page-subtitle">Have some ideas or want to get in touch?</p>
+        </section>
+
+        <!-- Main Content Section -->
+        <section class="page-content">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <p>I'm always open to discussing new research opportunities, collaborations, speaking engagements, or just having a conversation about AI and technology. Feel free to reach out through any of the channels below.</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <a href="mailto:abhaskumarsinha@gmail.com">abhaskumarsinha@gmail.com</a>
+                                <p style="font-size: 0.85rem; margin-top: 0.3rem;">Best for: Detailed inquiries, collaborations</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <i class="fab fa-linkedin"></i>
+                            <div>
+                                <h4>LinkedIn</h4>
+                                <a href="https://www.linkedin.com/in/abhas-kumar-sinha/" target="_blank">Connect with me</a>
+                                <p style="font-size: 0.85rem; margin-top: 0.3rem;">Best for: Professional networking</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <i class="fab fa-github"></i>
+                            <div>
+                                <h4>GitHub</h4>
+                                <a href="https://github.com/abhaskumarsinha" target="_blank">Check out my work</a>
+                                <p style="font-size: 0.85rem; margin-top: 0.3rem;">Best for: Code collaborations, open source</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Location</h4>
+                                <p>Indian Institute of Technology Guwahati</p>
+                                <p style="font-size: 0.85rem; margin-top: 0.3rem;">Guwahati, Assam, India, PIN: 781039</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0, 246, 255, 0.1); border-radius: 10px; border-left: 3px solid var(--primary-color);">
+                        <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">Response Time</h4>
+                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.95rem; margin: 0;">I typically respond to emails within 24-48 hours during weekdays. For urgent matters, please mention "[URGENT]" in the subject line.</p>
+                    </div>
+                </div>
+
+                <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Send a Message</h3>
+                        <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">Fill out the form below and I'll get back to you soon</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <input type="text" id="subject" name="subject" placeholder="Research Collaboration Opportunity" required>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" rows="6" placeholder="Tell me about your inquiry..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="cta-button">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+
+                    <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: rgba(255, 255, 255, 0.5);">
+                        <i class="fas fa-lock"></i> Your information is secure and will never be shared with third parties.
+                    </p>
+                </form>
+            </div>
+
+			<!-- Additional Info Section -->
+			<div style="max-width: 1100px; margin: 4rem auto 2rem auto; padding: 2rem; background: rgba(255, 255, 255, 0.05); border-radius: 15px; border: 1px solid rgba(0, 246, 255, 0.2);">
+				<h3 style="color: var(--primary-color); text-align: center; margin-bottom: 2rem;">Frequently Asked Questions</h3>
+				
+				<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+					
+					<div>
+						<h4 style="color: var(--text-color); margin-bottom: 0.5rem;">
+							<i class="fas fa-question-circle" style="color: var(--primary-color);"></i> Research Collaborations
+						</h4>
+						<p style="color: rgba(255, 255, 255, 0.7); font-size: 0.95rem;">
+							I’m open to collaborative research opportunities, particularly in AI, computer vision, and machine learning. 
+							If you have a project in mind, feel free to share your ideas and vision for the collaboration. 
+							Please note that formal research partnerships and publications may require prior approval from my advisor.
+						</p>
+					</div>
+
+					<div>
+						<h4 style="color: var(--text-color); margin-bottom: 0.5rem;">
+							<i class="fas fa-question-circle" style="color: var(--primary-color);"></i> Speaking Engagements
+						</h4>
+						<p style="color: rgba(255, 255, 255, 0.7); font-size: 0.95rem;">
+							At the moment, I’m not available for talks or paper-reading sessions. 
+							However, you are welcome to reach out via email, and I’ll be glad to review your request. 
+							I’m currently not active on Discord or similar discussion platforms.
+						</p>
+					</div>
+
+					<div>
+						<h4 style="color: var(--text-color); margin-bottom: 0.5rem;">
+							<i class="fas fa-question-circle" style="color: var(--primary-color);"></i> Mentorship
+						</h4>
+						<p style="color: rgba(255, 255, 255, 0.7); font-size: 0.95rem;">
+							I am not available for direct mentorship in research or startups. 
+							That said, I’m always open to open-source collaborations and meaningful technical discussions.
+						</p>
+					</div>
+					
+				</div>
+			</div>
+
+        </section>
+    </main>
+
+        <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About</h4>
+                <p>PhD Researcher at IIT Guwahati, specializing in AI and Computer Vision. Passionate about pushing the boundaries of technology and innovation.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#publications">Publications</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>Feel free to reach out for collaborations or just a friendly chat.</p>
+                <div class="footer-social">
+                    <a href="https://github.com/abhaskumarsinha" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/abhas-kumar-sinha/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:abhaskumarsinha@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Abhas Kumar Sinha. All rights reserved. Built with 💻 and ❤️</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>

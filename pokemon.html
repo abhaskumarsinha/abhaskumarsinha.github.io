@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Features | Abhas Kumar Sinha</title>
+    
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="extras.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .pokemon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pokemon-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+            text-decoration: none;
+            display: block;
+            min-height: 280px;
+        }
+
+        .pokemon-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(0, 246, 255, 0.1) 50%, transparent 70%);
+            transform: rotate(0deg);
+            transition: transform 0.6s ease;
+        }
+
+        .pokemon-card:hover::before {
+            transform: rotate(180deg);
+        }
+
+        .pokemon-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 60px rgba(0, 246, 255, 0.3),
+                        0 0 80px rgba(112, 0, 255, 0.2);
+        }
+
+        .pokemon-card.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .pokemon-card.disabled:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 10px 30px rgba(0, 246, 255, 0.15);
+        }
+
+        .pokemon-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .pokemon-card:not(.disabled):hover .pokemon-icon {
+            transform: rotateY(360deg);
+            box-shadow: 0 0 30px rgba(0, 246, 255, 0.6);
+        }
+
+        .pokemon-icon i {
+            font-size: 2.5rem;
+            color: var(--background-color);
+        }
+
+        .pokemon-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .pokemon-title {
+            font-size: 1.6rem;
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .pokemon-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .pokemon-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .pokemon-tag {
+            background: rgba(0, 246, 255, 0.15);
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .pokemon-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pokemon-status.coming-soon {
+            background: rgba(255, 165, 0, 0.2);
+            color: #ffa500;
+        }
+
+        .section-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            padding: 0 2rem;
+        }
+
+        .section-intro h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-intro p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .pokemon-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
+
+        /* Floating animation for icons */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .pokemon-card:not(.disabled):hover .pokemon-icon {
+            animation: float 2s ease-in-out infinite;
+        }
+
+        /* Particle effect on hover */
+        .pokemon-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                        rgba(0, 246, 255, 0.1) 0%, 
+                        transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .pokemon-card:not(.disabled):hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="particles-background"></div>
+    <div class="background-overlay"></div>
+    
+    <header class="nav-header">
+        <nav>
+            <div class="logo"><a href="index.html">AS</a></div>
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="glitch-container">
+                <h1 class="glitch" data-text="Special Features">Special Features</h1>
+            </div>
+            <p class="page-subtitle">Discover interactive demos, visualizations, and unique tools</p>
+        </section>
+
+        <div class="section-intro">
+            <h2>Catch 'Em All</h2>
+            <p>Explore a collection of interactive demonstrations, research visualizations, and experimental tools. Each feature represents a unique capability showcasing AI, ML, and creative coding.</p>
+        </div>
+
+        <div class="pokemon-grid">
+            <!-- 3D Neural Network Visualizer - LIVE -->
+            <a href="neural_net.html" class="pokemon-card">
+                <span class="pokemon-status">Live</span>
+                <div class="pokemon-icon">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <div class="pokemon-content">
+                    <h3 class="pokemon-title">Neural Network Visualizer</h3>
+                    <p class="pokemon-description">Visualize neural network architectures in 3D space. Watch signal propagation through layers with customizable network depth and neuron count.</p>
+                    <div class="pokemon-tags">
+                        <span class="pokemon-tag">3D Visualization</span>
+                        <span class="pokemon-tag">WebGL</span>
+                        <span class="pokemon-tag">Interactive</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Meeting Scheduler - Coming Soon -->
+            <a href="#" class="pokemon-card disabled">
+                <span class="pokemon-status coming-soon">Coming Soon</span>
+                <div class="pokemon-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="pokemon-content">
+                    <h3 class="pokemon-title">Calendar & Scheduler</h3>
+                    <p class="pokemon-description">Book a time slot for research discussions, collaborations, or consultations. Integrated calendar with automatic timezone conversion.</p>
+                    <div class="pokemon-tags">
+                        <span class="pokemon-tag">Scheduling</span>
+                        <span class="pokemon-tag">Collaboration</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Research Presentations - Coming Soon -->
+            <a href="#" class="pokemon-card disabled">
+                <span class="pokemon-status coming-soon">Coming Soon</span>
+                <div class="pokemon-icon">
+                    <i class="fas fa-file-powerpoint"></i>
+                </div>
+                <div class="pokemon-content">
+                    <h3 class="pokemon-title">Research Presentations</h3>
+                    <p class="pokemon-description">Watch recorded conference talks, seminars, and research presentations. Includes slides, timestamps, and Q&A sessions.</p>
+                    <div class="pokemon-tags">
+                        <span class="pokemon-tag">Videos</span>
+                        <span class="pokemon-tag">Conferences</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Sculptor vs Erode Battle - Coming Soon -->
+            <a href="#" class="pokemon-card disabled">
+                <span class="pokemon-status coming-soon">Coming Soon</span>
+                <div class="pokemon-icon">
+                    <i class="fas fa-hammer"></i>
+                </div>
+                <div class="pokemon-content">
+                    <h3 class="pokemon-title">Sculptor vs Erode Battle</h3>
+                    <p class="pokemon-description">Strategic game where one player builds structures while the other tries to erode them. Test optimization strategies in real-time.</p>
+                    <div class="pokemon-tags">
+                        <span class="pokemon-tag">Game AI</span>
+                        <span class="pokemon-tag">Strategy</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Maze Generator & Solver - Coming Soon -->
+            <a href="#" class="pokemon-card disabled">
+                <span class="pokemon-status coming-soon">Coming Soon</span>
+                <div class="pokemon-icon">
+                    <i class="fas fa-route"></i>
+                </div>
+                <div class="pokemon-content">
+                    <h3 class="pokemon-title">Maze Explorer</h3>
+                    <p class="pokemon-description">Generate random mazes and watch AI pathfinding algorithms solve them. Compare A*, Dijkstra, BFS, and DFS in action.</p>
+                    <div class="pokemon-tags">
+                        <span class="pokemon-tag">Pathfinding</span>
+                        <span class="pokemon-tag">Algorithms</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Ping Pong AI - Coming Soon -->
+            <a href="#" class="pokemon-card disabled">
+                <span class="pokemon-status coming-soon">Coming Soon</span>
+                <div class="pokemon-icon">
+                    <i class="fas fa-table-tennis"></i>
+                </div>
+                <div class="pokemon-content">
+                    <h3 class="pokemon-title">AI Ping Pong</h3>
+                    <p class="pokemon-description">Classic pong game with AI opponent trained using reinforcement learning. Adjust difficulty and watch the AI adapt to your strategy.</p>
+                    <div class="pokemon-tags">
+                        <span class="pokemon-tag">Game AI</span>
+                        <span class="pokemon-tag">RL</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Tetris AI - Coming Soon -->
+            <a href="#" class="pokemon-card disabled">
+                <span class="pokemon-status coming-soon">Coming Soon</span>
+                <div class="pokemon-icon">
+                    <i class="fas fa-th"></i>
+                </div>
+                <div class="pokemon-content">
+                    <h3 class="pokemon-title">Tetris AI Challenge</h3>
+                    <p class="pokemon-description">Watch AI play Tetris using genetic algorithms. Compete against the AI or let it train and improve its strategy over generations.</p>
+                    <div class="pokemon-tags">
+                        <span class="pokemon-tag">Genetic Algorithm</span>
+                        <span class="pokemon-tag">Game AI</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Audio Visualizer - Coming Soon -->
+            <a href="#" class="pokemon-card disabled">
+                <span class="pokemon-status coming-soon">Coming Soon</span>
+                <div class="pokemon-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <div class="pokemon-content">
+                    <h3 class="pokemon-title">Audio Visualizer</h3>
+                    <p class="pokemon-description">Real-time audio visualization with frequency analysis. Upload music or use your microphone to create stunning visual patterns.</p>
+                    <div class="pokemon-tags">
+                        <span class="pokemon-tag">Audio</span>
+                        <span class="pokemon-tag">WebAudio API</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About</h4>
+                <p>PhD Researcher at IIT Guwahati, specializing in AI and Computer Vision. Passionate about pushing the boundaries of technology and innovation.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="publications.html">Publications</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>Feel free to reach out for collaborations or just a friendly chat.</p>
+                <div class="footer-social">
+                    <a href="https://github.com/abhaskumarsinha" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/abhas-kumar-sinha/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:abhaskumarsinha@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Abhas Kumar Sinha. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="scripts.js"></script>
+    <script>
+        // Add mouse tracking for particle effect on active cards
+        document.querySelectorAll('.pokemon-card:not(.disabled)').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                card.style.setProperty('--mouse-x', `${x}%`);
+                card.style.setProperty('--mouse-y', `${y}%`);
+            });
+        });
+
+        // Prevent navigation on disabled cards
+        document.querySelectorAll('.pokemon-card.disabled').forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(30px)';
+                    setTimeout(() => {
+                        entry.target.style.transition = 'all 0.6s ease';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.pokemon-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

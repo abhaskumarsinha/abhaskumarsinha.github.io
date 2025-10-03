@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery | Abhas Kumar Sinha</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Explore Abhas Kumar Sinha's photography portfolio featuring travel, portrait, street, wildlife, and landscape photography. High-quality images from India and beyond with stories behind each capture.">
+    <meta name="keywords" content="Photography, Travel Photography, Portrait Photography, Street Photography, Wildlife Photography, Landscape Photography, India Photography, Professional Photographer, Photo Gallery, Abhas Kumar Sinha">
+    <link rel="canonical" href="https://abhaskumarsinha.github.io/photography.html">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Photography Portfolio | Abhas Kumar Sinha">
+    <meta property="og:description" content="Discover captivating photography from travel adventures, intimate portraits, vibrant street scenes, wildlife encounters, and breathtaking landscapes. Each image tells a unique story.">
+    <meta property="og:image" content="https://abhaskumarsinha.github.io/images/photography_preview.jpg">
+    <meta property="og:url" content="https://abhaskumarsinha.github.io/photography.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Abhas Kumar Sinha">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Photography Portfolio | Abhas Kumar Sinha">
+    <meta name="twitter:description" content="Journey through stunning photographs capturing travel, portraits, street life, wildlife, and landscapes. Professional photography portfolio with stories behind the lens.">
+    <meta name="twitter:image" content="https://abhaskumarsinha.github.io/images/photography_preview.jpg">
+    <meta name="twitter:creator" content="@abhaskrsinha">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "name": "Photography Portfolio - Abhas Kumar Sinha",
+      "url": "https://abhaskumarsinha.github.io/photography.html",
+      "description": "Professional photography portfolio featuring travel, portrait, street, wildlife, and landscape photography from India and around the world.",
+      "author": {
+        "@type": "Person",
+        "name": "Abhas Kumar Sinha",
+        "jobTitle": "PhD Researcher & Photographer",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Indian Institute of Technology Guwahati"
+        },
+        "sameAs": [
+          "https://github.com/abhaskumarsinha",
+          "https://www.linkedin.com/in/abhas-kumar-sinha/"
+        ]
+      },
+      "genre": [
+        "Travel Photography",
+        "Portrait Photography",
+        "Street Photography",
+        "Wildlife Photography",
+        "Landscape Photography"
+      ],
+      "keywords": "photography, travel, portraits, street photography, wildlife, landscapes, India, professional photographer",
+      "image": "https://abhaskumarsinha.github.io/images/photography_preview.jpg"
+    }
+    </script>
+    
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="extras.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #00f6ff;
+            --secondary-color: #7000ff;
+            --background-color: #0a0a0f;
+            --text-color: #ffffff;
+        }
+
+        /* Gallery Controls */
+        .gallery-controls {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-bar {
+            flex: 1;
+            min-width: 250px;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 246, 255, 0.3);
+            border-radius: 25px;
+            color: var(--text-color);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 246, 255, 0.2);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+        }
+
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .filter-tab {
+            padding: 0.6rem 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 246, 255, 0.3);
+            border-radius: 20px;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-tab:hover {
+            background: rgba(0, 246, 255, 0.1);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .filter-tab.active {
+            background: var(--primary-color);
+            color: var(--background-color);
+            border-color: var(--primary-color);
+        }
+
+        .gallery-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .action-icon-btn {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 246, 255, 0.3);
+            border-radius: 50%;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-icon-btn:hover {
+            background: var(--primary-color);
+            color: var(--background-color);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 246, 255, 0.4);
+        }
+
+        .action-icon-btn.active {
+            background: var(--primary-color);
+            color: var(--background-color);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            aspect-ratio: 4/3;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 246, 255, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-item-title {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-item-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-item-meta i {
+            color: var(--primary-color);
+        }
+
+        .gallery-item-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tag {
+            background: rgba(0, 246, 255, 0.2);
+            color: var(--primary-color);
+            padding: 0.2rem 0.6rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox-info {
+            position: absolute;
+            bottom: -120px;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .lightbox-title {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .lightbox-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .lightbox-metadata {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .lightbox-metadata span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .lightbox-metadata i {
+            color: var(--primary-color);
+        }
+
+        .lightbox-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .share-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 246, 255, 0.3);
+            border-radius: 5px;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .share-btn:hover {
+            background: var(--primary-color);
+            color: var(--background-color);
+            border-color: var(--primary-color);
+        }
+
+        .lightbox-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2rem;
+            pointer-events: none;
+        }
+
+        .lightbox-nav {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 246, 255, 0.2);
+            border: 1px solid var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            pointer-events: all;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--primary-color);
+            color: var(--background-color);
+            transform: scale(1.1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #ff0000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff0000;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            background: #ff0000;
+            color: white;
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .lightbox-zoom-controls {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 246, 255, 0.2);
+            border: 1px solid var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .zoom-btn:hover {
+            background: var(--primary-color);
+            color: var(--background-color);
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .no-results i {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gallery-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-bar {
+                max-width: 100%;
+            }
+
+            .filter-tabs {
+                justify-content: center;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+
+            .lightbox-info {
+                bottom: 0;
+                position: relative;
+                margin-top: 1rem;
+            }
+
+            .lightbox-controls {
+                padding: 0 1rem;
+            }
+
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+            }
+
+            .lightbox-close,
+            .lightbox-zoom-controls {
+                top: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="particles-background"></div>
+    <div class="background-overlay"></div>
+    
+    <header class="nav-header">
+        <nav>
+            <div class="logo"><a href="index.html">AS</a></div>
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="photography.html" class="active">Photography</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="glitch-container">
+                <h1 class="glitch" data-text="Photography">Photo Gallery</h1>
+            </div>
+            <p class="page-subtitle">Capturing moments, telling stories through the lens</p>
+        </section>
+
+        <section class="gallery-controls">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search by title, location, tags...">
+            </div>
+
+            <div class="filter-tabs" id="filterTabs">
+                <button class="filter-tab active" data-category="all">
+                    <i class="fas fa-th"></i> All
+                </button>
+            </div>
+
+            <div class="gallery-actions">
+                <button class="action-icon-btn" id="slideshowBtn" title="Start Slideshow">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="action-icon-btn" id="sortBtn" title="Sort by Date">
+                    <i class="fas fa-sort"></i>
+                </button>
+            </div>
+        </section>
+
+        <section class="gallery-grid" id="galleryGrid">
+            <!-- Photos will be loaded here dynamically -->
+        </section>
+
+        <div class="no-results" id="noResults" style="display: none;">
+            <i class="fas fa-search"></i>
+            <h3>No photos found</h3>
+            <p>Try adjusting your search or filters</p>
+        </div>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-close" id="closeLightbox">
+            <i class="fas fa-times"></i>
+        </div>
+
+        <div class="lightbox-zoom-controls">
+            <div class="zoom-btn" id="zoomIn">
+                <i class="fas fa-plus"></i>
+            </div>
+            <div class="zoom-btn" id="zoomOut">
+                <i class="fas fa-minus"></i>
+            </div>
+            <div class="zoom-btn" id="resetZoom">
+                <i class="fas fa-expand"></i>
+            </div>
+            <div class="zoom-btn" id="fullscreenBtn" title="Fullscreen (F)">
+                <i class="fas fa-expand-arrows-alt"></i>
+            </div>
+        </div>
+
+        <div class="lightbox-controls">
+            <div class="lightbox-nav" id="prevPhoto">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="lightbox-nav" id="nextPhoto">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-image" id="lightboxImage">
+            <div class="lightbox-info" id="lightboxInfo">
+                <h2 class="lightbox-title" id="lightboxTitle"></h2>
+                <p class="lightbox-description" id="lightboxDescription"></p>
+                <div class="lightbox-metadata" id="lightboxMetadata"></div>
+                <div class="lightbox-actions" id="lightboxActions"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About</h4>
+                <p>PhD Researcher at IIT Guwahati, specializing in AI and Computer Vision. Passionate about pushing the boundaries of technology and innovation.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="publications.html">Publications</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <div class="footer-social">
+                    <a href="https://github.com/abhaskumarsinha" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/abhas-kumar-sinha/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:abhaskumarsinha@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Abhas Kumar Sinha. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="scripts.js"></script>
+    <script>
+        // Photo Gallery Data Management
+        let allPhotos = [];
+        let filteredPhotos = [];
+        let currentPhotoIndex = 0;
+        let currentZoom = 1;
+        let slideshowInterval = null;
+
+        // Load photos from JSON
+        async function loadPhotos() {
+            try {
+                // Use inline data (matching your document)
+                allPhotos = [
+                  {
+                    "id": 1,
+                    "title": "Golden Hour at Marine Drive",
+                    "description": "Capturing the serene beauty of Mumbai's iconic Marine Drive during sunset. The golden light reflected off the Arabian Sea created a mesmerizing palette of warm hues.",
+                    "category": "Travel",
+                    "thumbnail": "./images/travel/photo-thumb.jpg",
+                    "image": "./images/travel/photo.jpg",
+                    "location": "Marine Drive, Mumbai, India",
+                    "date": "2024-08-15",
+                    "camera": "Canon EOS R5, 24-70mm f/2.8",
+                    "tags": ["sunset", "cityscape", "mumbai", "golden hour", "seascape"]
+                  },
+                  {
+                    "id": 2,
+                    "title": "Portrait in Natural Light",
+                    "description": "A candid portrait shot using only natural window light. The soft shadows and gentle lighting created an intimate and authentic mood.",
+                    "category": "Portrait",
+                    "thumbnail": "./images/potraits/photo-thumb.jpg",
+                    "image": "./images/potraits/photo.jpg",
+                    "location": "Studio, Guwahati",
+                    "date": "2024-07-22",
+                    "camera": "Sony A7III, 85mm f/1.4",
+                    "tags": ["portrait", "natural light", "candid", "intimate", "studio"]
+                  },
+                  {
+                    "id": 3,
+                    "title": "Street Life in Old Delhi",
+                    "description": "The bustling streets of Chandni Chowk tell a thousand stories. This shot captures the essence of daily life in one of Delhi's oldest markets.",
+                    "category": "Street",
+                    "thumbnail": "./images/street/photo-thumb.jpg",
+                    "image": "./images/street/photo.jpg",
+                    "location": "Chandni Chowk, Delhi, India",
+                    "date": "2024-06-10",
+                    "camera": "Fujifilm X-T4, 35mm f/1.4",
+                    "tags": ["street photography", "delhi", "market", "culture", "candid"]
+                  }
+                ];
+                
+                filteredPhotos = [...allPhotos];
+                
+                // Generate filter tabs
+                const categories = [...new Set(allPhotos.map(p => p.category))];
+                generateFilterTabs(categories);
+                
+                // Render gallery
+                renderGallery();
+            } catch (error) {
+                console.error('Error loading photos:', error);
+                document.getElementById('noResults').style.display = 'block';
+            }
+        }
+
+        // Generate filter tabs
+        function generateFilterTabs(categories) {
+            const container = document.getElementById('filterTabs');
+            const allTab = container.querySelector('[data-category="all"]');
+            
+            categories.forEach(category => {
+                const tab = document.createElement('button');
+                tab.className = 'filter-tab';
+                tab.dataset.category = category;
+                tab.innerHTML = `<i class="fas fa-tag"></i> ${category}`;
+                tab.addEventListener('click', () => filterByCategory(category));
+                container.appendChild(tab);
+            });
+        }
+
+        // Render gallery
+        function renderGallery() {
+            const grid = document.getElementById('galleryGrid');
+            const noResults = document.getElementById('noResults');
+            
+            grid.innerHTML = '';
+            
+            if (filteredPhotos.length === 0) {
+                grid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            grid.style.display = 'grid';
+            noResults.style.display = 'none';
+            
+            filteredPhotos.forEach((photo, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.innerHTML = `
+                    <img src="${photo.thumbnail}" alt="${photo.title}" loading="lazy">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">${photo.title}</div>
+                        <div class="gallery-item-meta">
+                            ${photo.location ? `<span><i class="fas fa-map-marker-alt"></i> ${photo.location}</span>` : ''}
+                            ${photo.date ? `<span><i class="fas fa-calendar"></i> ${photo.date}</span>` : ''}
+                        </div>
+                        <div class="gallery-item-tags">
+                            ${photo.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+                item.addEventListener('click', () => openLightbox(index));
+                grid.appendChild(item);
+            });
+        }
+
+        // Filter by category
+        function filterByCategory(category) {
+            const tabs = document.querySelectorAll('.filter-tab');
+            tabs.forEach(tab => {
+                if (tab.dataset.category === category) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            if (category === 'all') {
+                filteredPhotos = [...allPhotos];
+            } else {
+                filteredPhotos = allPhotos.filter(p => p.category === category);
+            }
+            
+            renderGallery();
+        }
+        
+        // Add click handler for "All" tab
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const allTab = document.querySelector('[data-category="all"]');
+                if (allTab) {
+                    allTab.addEventListener('click', () => filterByCategory('all'));
+                }
+            }, 100);
+        });
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            
+            filteredPhotos = allPhotos.filter(photo => {
+                return photo.title.toLowerCase().includes(query) ||
+                       photo.description.toLowerCase().includes(query) ||
+                       (photo.location && photo.location.toLowerCase().includes(query)) ||
+                       photo.tags.some(tag => tag.toLowerCase().includes(query));
+            });
+            
+            renderGallery();
+        });
+
+        // Sort functionality
+        let sortDescending = true;
+        document.getElementById('sortBtn').addEventListener('click', () => {
+            sortDescending = !sortDescending;
+            filteredPhotos.sort((a, b) => {
+                const dateA = new Date(a.date);
+                const dateB = new Date(b.date);
+                return sortDescending ? dateB - dateA : dateA - dateB;
+            });
+            renderGallery();
+        });
+
+        // Lightbox functionality
+        function openLightbox(index) {
+            currentPhotoIndex = index;
+            const photo = filteredPhotos[index];
+            const lightbox = document.getElementById('lightbox');
+            
+            document.getElementById('lightboxImage').src = photo.image;
+            document.getElementById('lightboxTitle').textContent = photo.title;
+            document.getElementById('lightboxDescription').textContent = photo.description;
+            
+            // Metadata
+            const metadata = document.getElementById('lightboxMetadata');
+            metadata.innerHTML = `
+                ${photo.camera ? `<span><i class="fas fa-camera"></i> ${photo.camera}</span>` : ''}
+                ${photo.location ? `<span><i class="fas fa-map-marker-alt"></i> ${photo.location}</span>` : ''}
+                ${photo.date ? `<span><i class="fas fa-calendar"></i> ${photo.date}</span>` : ''}
+                <span><i class="fas fa-tags"></i> ${photo.tags.join(', ')}</span>
+            `;
+            
+            // Share buttons
+            const actions = document.getElementById('lightboxActions');
+            const shareUrl = encodeURIComponent(window.location.href);
+            const shareText = encodeURIComponent(photo.title);
+            
+            actions.innerHTML = `
+                <button class="share-btn" onclick="shareToFacebook('${shareUrl}')">
+                    <i class="fab fa-facebook"></i> Facebook
+                </button>
+                <button class="share-btn" onclick="shareToTwitter('${shareText}', '${shareUrl}')">
+                    <i class="fab fa-twitter"></i> Twitter
+                </button>
+                <button class="share-btn" onclick="shareToPinterest('${shareUrl}', '${photo.image}', '${shareText}')">
+                    <i class="fab fa-pinterest"></i> Pinterest
+                </button>
+                <button class="share-btn" onclick="downloadImage('${photo.image}', '${photo.title}')">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            `;
+            
+            lightbox.classList.add('active');
+            resetZoom();
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            stopSlideshow();
+        }
+
+        function navigatePhoto(direction) {
+            currentPhotoIndex = (currentPhotoIndex + direction + filteredPhotos.length) % filteredPhotos.length;
+            openLightbox(currentPhotoIndex);
+        }
+
+        // Zoom controls
+        function zoomImage(factor) {
+            currentZoom *= factor;
+            currentZoom = Math.max(0.5, Math.min(currentZoom, 3));
+            document.getElementById('lightboxImage').style.transform = `scale(${currentZoom})`;
+        }
+
+        function resetZoom() {
+            currentZoom = 1;
+            document.getElementById('lightboxImage').style.transform = 'scale(1)';
+        }
+
+        // Slideshow
+        document.getElementById('slideshowBtn').addEventListener('click', toggleSlideshow);
+
+        function toggleSlideshow() {
+            const btn = document.getElementById('slideshowBtn');
+            if (slideshowInterval) {
+                stopSlideshow();
+                btn.innerHTML = '<i class="fas fa-play"></i>';
+                btn.classList.remove('active');
+            } else {
+                startSlideshow();
+                btn.innerHTML = '<i class="fas fa-pause"></i>';
+                btn.classList.add('active');
+            }
+        }
+
+        function startSlideshow() {
+            if (filteredPhotos.length === 0) return;
+            
+            // Open first photo if lightbox is not already open
+            if (!document.getElementById('lightbox').classList.contains('active')) {
+                openLightbox(currentPhotoIndex);
+            }
+            
+            slideshowInterval = setInterval(() => {
+                navigatePhoto(1);
+            }, 3000);
+        }
+
+        function stopSlideshow() {
+            if (slideshowInterval) {
+                clearInterval(slideshowInterval);
+                slideshowInterval = null;
+                document.getElementById('slideshowBtn').innerHTML = '<i class="fas fa-play"></i>';
+                document.getElementById('slideshowBtn').classList.remove('active');
+            }
+        }
+
+        // Share functions
+        function shareToFacebook(url) {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+
+        function shareToTwitter(text, url) {
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
+
+        function shareToPinterest(url, image, description) {
+            window.open(`https://pinterest.com/pin/create/button/?url=${url}&media=${encodeURIComponent(image)}&description=${description}`, '_blank');
+        }
+
+        function downloadImage(url, filename) {
+            fetch(url)
+                .then(resp => resp.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = filename + '.jpg';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(() => alert('Failed to download image'));
+        }
+
+        // Event listeners
+        document.getElementById('closeLightbox').addEventListener('click', closeLightbox);
+        document.getElementById('prevPhoto').addEventListener('click', () => navigatePhoto(-1));
+        document.getElementById('nextPhoto').addEventListener('click', () => navigatePhoto(1));
+        document.getElementById('zoomIn').addEventListener('click', () => zoomImage(1.2));
+        document.getElementById('zoomOut').addEventListener('click', () => zoomImage(0.8));
+        document.getElementById('resetZoom').addEventListener('click', resetZoom);
+        document.getElementById('fullscreenBtn').addEventListener('click', toggleFullscreen);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const lightbox = document.getElementById('lightbox');
+            if (!lightbox.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') {
+                closeLightbox();
+                e.preventDefault();
+            }
+            if (e.key === 'ArrowLeft') {
+                navigatePhoto(-1);
+                e.preventDefault();
+            }
+            if (e.key === 'ArrowRight') {
+                navigatePhoto(1);
+                e.preventDefault();
+            }
+            if (e.key === '+' || e.key === '=') {
+                zoomImage(1.2);
+                e.preventDefault();
+            }
+            if (e.key === '-' || e.key === '_') {
+                zoomImage(0.8);
+                e.preventDefault();
+            }
+            if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+                e.preventDefault();
+            }
+        });
+        
+        // Fullscreen functionality
+        function toggleFullscreen() {
+            const lightbox = document.getElementById('lightbox');
+            
+            if (!document.fullscreenElement) {
+                if (lightbox.requestFullscreen) {
+                    lightbox.requestFullscreen();
+                } else if (lightbox.webkitRequestFullscreen) {
+                    lightbox.webkitRequestFullscreen();
+                } else if (lightbox.msRequestFullscreen) {
+                    lightbox.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        // Close lightbox on background click
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+        });
+
+        // Initialize gallery
+        loadPhotos();
+    </script>
+</body>
+</html>

@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-S28SLBF6SL"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-S28SLBF6SL');
+	</script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Gallery | Abhas Kumar Sinha</title>
@@ -54,8 +65,7 @@
         "Wildlife Photography",
         "Landscape Photography"
       ],
-      "keywords": "photography, travel, portraits, street photography, wildlife, landscapes, India, professional photographer",
-      "image": "https://abhaskumarsinha.github.io/images/photography_preview.jpg"
+      "keywords": "photography, travel, portraits, street photography, wildlife, landscapes, India, professional photographer"
     }
     </script>
     
@@ -521,19 +531,26 @@
 </head>
 
 <body>
+
+    <!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJWW6PRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
+    
     <div class="particles-background"></div>
     <div class="background-overlay"></div>
     
     <header class="nav-header">
         <nav>
-            <div class="logo"><a href="index.html">AS</a></div>
+            <div class="logo">AS</div>
             <ul>
-                <li><a href="index.html#home">Home</a></li>
-                <li><a href="index.html#about">About</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="publications.html">Publications</a></li>
-                <li><a href="photography.html" class="active">Photography</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./projects.html">Projects</a></li>
+                <li><a href="./blogs.html">Blog</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+				<li><a href="./pokemon.html">More Pokémons</a></li>
             </ul>
         </nav>
     </header>
@@ -629,11 +646,11 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
-                    <li><a href="index.html#home">Home</a></li>
-                    <li><a href="index.html#about">About</a></li>
-                    <li><a href="projects.html">Projects</a></li>
-                    <li><a href="publications.html">Publications</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li><a href="./projects.html">Projects</a></li>
+                    <li><a href="./pokemon.html">More Pokémons</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -663,46 +680,11 @@
         // Load photos from JSON
         async function loadPhotos() {
             try {
-                // Use inline data (matching your document)
-                allPhotos = [
-                  {
-                    "id": 1,
-                    "title": "Golden Hour at Marine Drive",
-                    "description": "Capturing the serene beauty of Mumbai's iconic Marine Drive during sunset. The golden light reflected off the Arabian Sea created a mesmerizing palette of warm hues.",
-                    "category": "Travel",
-                    "thumbnail": "./images/travel/photo-thumb.jpg",
-                    "image": "./images/travel/photo.jpg",
-                    "location": "Marine Drive, Mumbai, India",
-                    "date": "2024-08-15",
-                    "camera": "Canon EOS R5, 24-70mm f/2.8",
-                    "tags": ["sunset", "cityscape", "mumbai", "golden hour", "seascape"]
-                  },
-                  {
-                    "id": 2,
-                    "title": "Portrait in Natural Light",
-                    "description": "A candid portrait shot using only natural window light. The soft shadows and gentle lighting created an intimate and authentic mood.",
-                    "category": "Portrait",
-                    "thumbnail": "./images/potraits/photo-thumb.jpg",
-                    "image": "./images/potraits/photo.jpg",
-                    "location": "Studio, Guwahati",
-                    "date": "2024-07-22",
-                    "camera": "Sony A7III, 85mm f/1.4",
-                    "tags": ["portrait", "natural light", "candid", "intimate", "studio"]
-                  },
-                  {
-                    "id": 3,
-                    "title": "Street Life in Old Delhi",
-                    "description": "The bustling streets of Chandni Chowk tell a thousand stories. This shot captures the essence of daily life in one of Delhi's oldest markets.",
-                    "category": "Street",
-                    "thumbnail": "./images/street/photo-thumb.jpg",
-                    "image": "./images/street/photo.jpg",
-                    "location": "Chandni Chowk, Delhi, India",
-                    "date": "2024-06-10",
-                    "camera": "Fujifilm X-T4, 35mm f/1.4",
-                    "tags": ["street photography", "delhi", "market", "culture", "candid"]
-                  }
-                ];
+                // Try loading from external JSON file
+                const response = await fetch('./images/gallery.json');
+                if (!response.ok) throw new Error('Failed to load gallery.json');
                 
+                allPhotos = await response.json();
                 filteredPhotos = [...allPhotos];
                 
                 // Generate filter tabs
@@ -712,8 +694,11 @@
                 // Render gallery
                 renderGallery();
             } catch (error) {
-                console.error('Error loading photos:', error);
-                document.getElementById('noResults').style.display = 'block';
+                console.error('Error loading gallery.json:', error);
+                console.log('Falling back to inline data...');
+                
+                // Fallback: Use inline data if JSON fails to load
+                loadInlineData();
             }
         }
 
@@ -1029,4 +1014,5 @@
         loadPhotos();
     </script>
 </body>
+
 </html>

@@ -40,7 +40,7 @@ jobs:
           # fetch latest remote main
           git fetch origin main 
           # reset local main to match remote (optional if you want to overwrite conflicts)
-          # git reset --hard origin/main
+          git reset --hard origin/main
           git add -A images/
           git diff --cached --quiet || git commit -m "Update gallery.json and thumbnails"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main

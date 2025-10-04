@@ -1,0 +1,148 @@
+name: Update images/gallery.json
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  update-gallery:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stop if run by the bot (avoid loops)
+        if: ${{ github.actor == 'github-actions[bot]' }}
+        run: |
+          echo "Triggered by github-actions[bot] — exiting."
+          exit 0
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Add missing gallery.json entries for image/thumb pairs
+        env:
+          IMAGE_DIR: images
+        run: |
+          python - <<'PY'
+          import os, json, datetime, re
+          ws = os.environ.get("GITHUB_WORKSPACE", os.getcwd())
+          os.chdir(ws)
+          images_dir = os.environ.get("IMAGE_DIR", "images")
+          gallery_path = os.path.join(images_dir, "gallery.json")
+
+          # Load existing gallery list (or empty)
+          gallery = []
+          if os.path.exists(gallery_path):
+            try:
+              with open(gallery_path, "r", encoding="utf-8") as f:
+                gallery = json.load(f)
+                if not isinstance(gallery, list):
+                  print("gallery.json exists but is not a list. Aborting to avoid data loss.")
+                  raise SystemExit(1)
+            except Exception as e:
+              print("Failed to read gallery.json:", e)
+              raise
+
+          # Helper to normalize image path used in gallery entries
+          def norm_path(p): 
+            return p.replace("\\\\", "/")
+
+          existing_images = set()
+          for entry in gallery:
+            img = entry.get("image")
+            if img:
+              existing_images.add(norm_path(img))
+
+          # find all .jpg/.jpeg files (case-insensitive)
+          candidates = []
+          for fname in os.listdir(images_dir) if os.path.isdir(images_dir) else []:
+            low = fname.lower()
+            if low.endswith(".jpg") or low.endswith(".jpeg"):
+              if low.endswith("-thumb.jpg") or low.endswith("-thumb.jpeg"):
+                continue
+              candidates.append(fname)
+
+          def make_title(name):
+            s = re.sub(r'[_\-]+', ' ', name)
+            s = re.sub(r'\s+', ' ', s).strip()
+            return " ".join(w.capitalize() for w in s.split())
+
+          added = False
+          max_id = 0
+          for e in gallery:
+            try:
+              if isinstance(e.get("id"), int) and e.get("id") > max_id:
+                max_id = e.get("id")
+            except:
+              pass
+
+          for fname in sorted(candidates):
+            base, _ = os.path.splitext(fname)
+            img_path = f"./{images_dir}/{fname}"
+            thumb_path = f"./{images_dir}/{base}-thumb.jpg"
+            # also accept -thumb.jpeg if present
+            if not os.path.exists(os.path.join(images_dir, base + "-thumb.jpg")) and os.path.exists(os.path.join(images_dir, base + "-thumb.jpeg")):
+              thumb_path = f"./{images_dir}/{base}-thumb.jpeg"
+
+            if not os.path.exists(os.path.join(images_dir, base + "-thumb.jpg")) and not os.path.exists(os.path.join(images_dir, base + "-thumb.jpeg")):
+              # no thumbnail found -> skip
+              continue
+
+            if norm_path(img_path) in existing_images:
+              # already present in gallery -> skip
+              continue
+
+            # create new entry
+            max_id += 1
+            file_mtime = os.path.getmtime(os.path.join(images_dir, fname))
+            date_iso = datetime.datetime.utcfromtimestamp(file_mtime).strftime("%Y-%m-%d")
+            title = make_title(base)
+
+            entry = {
+              "id": max_id,
+              "title": title if title else "Null",
+              "description": "NaN",
+              "category": "None",
+              "thumbnail": norm_path(thumb_path),
+              "image": norm_path(img_path),
+              "location": "None",
+              "date": date_iso,
+              "camera": "None",
+              "tags": ["None"]
+            }
+            gallery.append(entry)
+            print("Adding entry for:", img_path)
+            added = True
+
+          if added:
+            # Write (pretty)
+            with open(gallery_path, "w", encoding="utf-8") as f:
+              json.dump(gallery, f, indent=2, ensure_ascii=False)
+            print("Updated", gallery_path)
+          else:
+            print("No new image/thumb pairs needing entries.")
+          PY
+
+      - name: Commit & push gallery.json if changed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add ./images/gallery.json
+            git commit -m "chore(images): add missing gallery.json entries for image/thumb pairs"
+            # push back to the PR branch
+            git push origin HEAD:${{ github.head_ref }}
+            echo "Pushed updated gallery.json"
+          else
+            echo "No changes to commit."
+          fi

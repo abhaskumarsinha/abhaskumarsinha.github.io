@@ -1,38 +1,36 @@
 #!/usr/bin/env python3
 """
-scripts/update_gallery.py
+Safe update_gallery.py
 
-- Update /images/gallery.json automatically
-- Ensure every .jpg has a corresponding -thumb.jpg
-- Add new entries for new images, preserve old entries and metadata
+- Only adds new images to gallery.json
+- Preserves all metadata for existing entries
+- Generates missing thumbnails
 """
 
 import json
 from pathlib import Path
 from PIL import Image
 
-# Paths
 BASE_DIR = Path(__file__).resolve().parent.parent
 IMAGES_DIR = BASE_DIR / "images"
 GALLERY_PATH = IMAGES_DIR / "gallery.json"
 THUMB_SUFFIX = "-thumb"
-THUMB_SIZE = (400, 400)  # px
-
-# ------------------- Helper Functions -------------------
+THUMB_SIZE = (400, 400)
 
 def is_image_file(p: Path):
     return p.suffix.lower() in [".jpg", ".jpeg"]
 
 def make_center_square(im: Image.Image):
     w, h = im.size
-    if w == h:
-        return im
+    if w == h: return im
     min_side = min(w, h)
     left = (w - min_side) // 2
     top = (h - min_side) // 2
     return im.crop((left, top, left + min_side, top + min_side))
 
 def create_thumbnail(src: Path, dst: Path):
+    if dst.exists():
+        return
     try:
         with Image.open(src) as im:
             im = im.convert("RGB")
@@ -42,9 +40,7 @@ def create_thumbnail(src: Path, dst: Path):
             im.save(dst, "JPEG", quality=85)
             print(f"Created thumbnail: {dst.name}")
     except Exception as e:
-        print(f"Failed to create thumbnail for {src.name}: {e}")
-        return False
-    return True
+        print(f"Failed thumbnail for {src.name}: {e}")
 
 def load_gallery():
     if not GALLERY_PATH.exists():
@@ -52,72 +48,60 @@ def load_gallery():
     try:
         return json.loads(GALLERY_PATH.read_text(encoding="utf-8"))
     except Exception as e:
-        print(f"Warning: failed to read existing gallery.json: {e}")
+        print(f"Warning reading gallery.json: {e}")
         return []
 
 def save_gallery(entries):
     GALLERY_PATH.write_text(json.dumps(entries, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(f"Saved gallery with {len(entries)} entries.")
+    print(f"Saved gallery.json with {len(entries)} entries.")
 
-def default_entry(image_name: str):
-    name = Path(image_name).stem
+def default_entry(img_name: str, next_id: int):
+    stem = Path(img_name).stem
     return {
-        "id": None,
-        "title": name,
+        "id": next_id,
+        "title": stem,
         "description": "NaN",
         "category": "None",
-        "thumbnail": f"./images/{name}{THUMB_SUFFIX}.jpg",
-        "image": f"./images/{name}.jpg",
+        "thumbnail": f"./images/{stem}{THUMB_SUFFIX}.jpg",
+        "image": f"./images/{stem}.jpg",
         "location": "None",
         "date": "2000-01-01",
         "camera": "None",
         "tags": ["None"]
     }
 
-# ------------------- Main -------------------
-
 def main():
-    if not IMAGES_DIR.exists():
-        print(f"No images directory found at {IMAGES_DIR}. Exiting.")
-        return
+    if not IMAGES_DIR.exists(): return
 
-    # Load existing gallery
     gallery = load_gallery()
     existing_images = {entry["image"]: entry for entry in gallery}
+    max_id = max([entry.get("id", 0) for entry in gallery], default=0)
 
-    # Scan images folder
     images = [p for p in IMAGES_DIR.iterdir() if p.is_file() and is_image_file(p)]
     new_entries = []
 
     for img in images:
         if img.stem.lower().endswith(THUMB_SUFFIX.lstrip("-")):
-            continue  # skip thumbnails
+            continue
 
         thumb_path = IMAGES_DIR / f"{img.stem}{THUMB_SUFFIX}.jpg"
-        if not thumb_path.exists():
-            create_thumbnail(img, thumb_path)
+        create_thumbnail(img, thumb_path)
 
-        rel_image_path = f"./images/{img.name}"
-        rel_thumb_path = f"./images/{thumb_path.name}"
+        rel_image = f"./images/{img.name}"
+        rel_thumb = f"./images/{thumb_path.name}"
 
-        if rel_image_path not in existing_images:
-            # Add new entry without touching existing ones
-            entry = default_entry(img.name)
-            entry["thumbnail"] = rel_thumb_path
-            entry["image"] = rel_image_path
+        if rel_image not in existing_images:
+            max_id += 1
+            entry = default_entry(img.name, max_id)
+            entry["thumbnail"] = rel_thumb
             new_entries.append(entry)
         else:
-            # Update thumbnail path if changed
-            existing_images[rel_image_path]["thumbnail"] = rel_thumb_path
+            # Preserve existing metadata, only update thumbnail if missing
+            if existing_images[rel_image].get("thumbnail") != rel_thumb:
+                existing_images[rel_image]["thumbnail"] = rel_thumb
 
-    # Assign IDs only to new entries (existing ones keep their original IDs)
-    max_id = max([entry["id"] for entry in gallery if entry.get("id")], default=0)
-    for i, entry in enumerate(new_entries, start=max_id + 1):
-        entry["id"] = i
-
-    # Merge old and new entries
+    # Append only new entries
     gallery.extend(new_entries)
-
     save_gallery(gallery)
 
 if __name__ == "__main__":

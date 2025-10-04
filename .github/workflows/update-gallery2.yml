@@ -1,7 +1,7 @@
 name: Update Gallery JSON
 
 on:
-  workflow_dispatch:  # manually triggered from GitHub UI
+  workflow_dispatch:  # Allows manual run from GitHub Actions UI
 
 jobs:
   update-gallery:
@@ -16,5 +16,13 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Verify script exists
+        run: |
+          echo "Checking if script exists..."
+          ls -R scripts || echo "scripts directory not found"
+          ls -R images || echo "images directory not found"
+
       - name: Run gallery update script
-        run: python3 ../../scripts/update_gallery.py
+        run: |
+          echo "Running gallery update script..."
+          python3 scripts/update_gallery.py

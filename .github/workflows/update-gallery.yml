@@ -1,32 +1,19 @@
-name: Update images/gallery.json
+name: Update images & gallery
 
 on:
-  # run on pushes to main (including direct web commits / uploads)
   push:
-    branches:
-      - main
-    # prevent retriggering when only gallery.json changed
     paths:
       - 'images/**'
-    paths-ignore:
-      - 'images/gallery.json'
-
-  # still respond to PRs if you want
   pull_request:
-    types: [opened, reopened, synchronize]
     paths:
       - 'images/**'
-
-  # manual run from UI for debugging
-  workflow_dispatch: {}
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: write   # required to create branches / PRs / commit files
 
 jobs:
-  update-gallery:
-    # skip when the actor is the actions bot (prevents loops)
-    if: ${{ github.actor != 'github-actions[bot]' }}
+  make-thumbs-and-update-gallery:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -34,120 +21,27 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Python
+      - name: Set up Python 3.x
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.11'
 
-      - name: Add missing gallery.json entries for image/thumb pairs
-        env:
-          IMAGE_DIR: images
+      - name: Install dependencies
         run: |
-          python - <<'PY'
-          import os, json, datetime, re
-          ws = os.environ.get("GITHUB_WORKSPACE", os.getcwd())
-          os.chdir(ws)
-          images_dir = os.environ.get("IMAGE_DIR", "images")
-          gallery_path = os.path.join(images_dir, "gallery.json")
+          python -m pip install --upgrade pip
+          pip install Pillow
 
-          gallery = []
-          if os.path.exists(gallery_path):
-            try:
-              with open(gallery_path, "r", encoding="utf-8") as f:
-                gallery = json.load(f)
-                if not isinstance(gallery, list):
-                  print("gallery.json exists but is not a list. Aborting.")
-                  raise SystemExit(1)
-            except Exception as e:
-              print("Failed to read gallery.json:", e)
-              raise
-
-          def norm_path(p): 
-            return p.replace("\\\\", "/")
-
-          existing_images = set()
-          for entry in gallery:
-            img = entry.get("image")
-            if img:
-              existing_images.add(norm_path(img))
-
-          candidates = []
-          if os.path.isdir(images_dir):
-            for fname in os.listdir(images_dir):
-              low = fname.lower()
-              if low.endswith(".jpg") or low.endswith(".jpeg"):
-                if low.endswith("-thumb.jpg") or low.endswith("-thumb.jpeg"):
-                  continue
-                candidates.append(fname)
-
-          def make_title(name):
-            s = re.sub(r'[_\-]+', ' ', name)
-            s = re.sub(r'\s+', ' ', s).strip()
-            return " ".join(w.capitalize() for w in s.split())
-
-          added = False
-          max_id = 0
-          for e in gallery:
-            try:
-              if isinstance(e.get("id"), int) and e.get("id") > max_id:
-                max_id = e.get("id")
-            except:
-              pass
-
-          for fname in sorted(candidates):
-            base, _ = os.path.splitext(fname)
-            img_path = f"./{images_dir}/{fname}"
-            thumb_jpg = os.path.join(images_dir, base + "-thumb.jpg")
-            thumb_jpeg = os.path.join(images_dir, base + "-thumb.jpeg")
-            if os.path.exists(thumb_jpg):
-              thumb_path = f"./{images_dir}/{base}-thumb.jpg"
-            elif os.path.exists(thumb_jpeg):
-              thumb_path = f"./{images_dir}/{base}-thumb.jpeg"
-            else:
-              continue
-
-            if norm_path(img_path) in existing_images:
-              continue
-
-            max_id += 1
-            file_mtime = os.path.getmtime(os.path.join(images_dir, fname))
-            date_iso = datetime.datetime.utcfromtimestamp(file_mtime).strftime("%Y-%m-%d")
-            title = make_title(base)
-            entry = {
-              "id": max_id,
-              "title": title if title else "Null",
-              "description": "NaN",
-              "category": "None",
-              "thumbnail": norm_path(thumb_path),
-              "image": norm_path(img_path),
-              "location": "None",
-              "date": date_iso,
-              "camera": "None",
-              "tags": ["None"]
-            }
-            gallery.append(entry)
-            print("Adding entry for:", img_path)
-            added = True
-
-          if added:
-            with open(gallery_path, "w", encoding="utf-8") as f:
-              json.dump(gallery, f, indent=2, ensure_ascii=False)
-            print("Updated", gallery_path)
-          else:
-            print("No new image/thumb pairs needing entries.")
-          PY
-
-      - name: Commit & push gallery.json if changed
+      - name: Run thumbnail + gallery update script
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add ./images/gallery.json
-            git commit -m "chore(images): add missing gallery.json entries for image/thumb pairs"
-            # If this run was triggered by a push to main, push back to that branch
-            BRANCH_NAME="${GITHUB_REF##*/}"
-            git push origin HEAD:"${BRANCH_NAME}"
-            echo "Pushed updated gallery.json to ${BRANCH_NAME}"
-          else
-            echo "No changes to commit."
-          fi
+          python scripts/update_gallery.py
+
+      # Create a PR for any changes made by the script
+      - name: Create Pull Request with changes (if any)
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(images): generate missing thumbnails and update gallery.json"
+          branch: "auto/thumbs-update-${{ github.run_id }}"
+          title: "[automated] Update thumbnails & gallery.json"
+          body: "This PR was created automatically to add missing thumbnails and update images/gallery.json."
+          labels: automated, images

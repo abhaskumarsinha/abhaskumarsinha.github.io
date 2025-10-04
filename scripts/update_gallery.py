@@ -98,12 +98,17 @@ def main():
             if not ok:
                 print(f"Skipping {src} (thumbnail creation failed).")
 
-    # now find pairs (image + thumb)
+    # ensure thumbs exist and collect pairs at the same time
     pairs = []
     for src in src_images:
         thumb = IMAGES_DIR / f"{src.stem}{THUMB_SUFFIX}.jpg"
-        if thumb.exists():
-            pairs.append((src, thumb))
+        if not thumb.exists():
+            ok = create_thumbnail(src, thumb)
+            if not ok:
+                print(f"Skipping {src} (thumbnail creation failed).")
+                continue  # skip this image if thumbnail failed
+        pairs.append((src, thumb))
+
 
     # load existing gallery entries and index by image path (./images/<name>.jpg)
     existing = load_existing_gallery()

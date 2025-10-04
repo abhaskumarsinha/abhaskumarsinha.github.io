@@ -1,14 +1,34 @@
 [
   {
     "id": 1,
+    "title": "G2VXVUGWQAAUSQR",
+    "description": "NaN",
+    "category": "None",
+    "thumbnail": "./images/G2VXVUGWQAAUSQR-thumb.jpg",
+    "image": "./images/G2VXVUGWQAAUSQR.jpg",
+    "location": "None",
+    "date": "2000-01-01",
+    "camera": "None",
+    "tags": [
+      "None"
+    ]
+  },
+  {
+    "id": 2,
     "title": "Moon in the blue sky",
     "description": "Capturing the image of the moon in the blue sky before full night showcasing contrast of the white spot over blues.",
     "category": "Moon",
-    "thumbnail": "./images/photo-thumb.jpg",
-    "image": "./images/photo.jpg",
+    "thumbnail": ".//home/runner/work/abhaskumarsinha.github.io/abhaskumarsinha.github.io/images/photo-thumb.jpg",
+    "image": ".//home/runner/work/abhaskumarsinha.github.io/abhaskumarsinha.github.io/images/photo.jpg",
     "location": "Lohit Hostel, Guwahati, IIT Guwahati, Assam, India",
     "date": "2025-10-04",
     "camera": "Redmi A4 5G",
-    "tags": ["sunset", "Moon", "twilight", "Sky", "Clouds"]
+    "tags": [
+      "sunset",
+      "Moon",
+      "twilight",
+      "Sky",
+      "Clouds"
+    ]
   }
 ]

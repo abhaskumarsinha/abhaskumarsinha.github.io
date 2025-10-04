@@ -349,44 +349,40 @@
   },
   {
     "id": 18,
-    "title": "Go1SZuyW0AAtSzG",
-    "description": "NaN",
-    "category": "None",
+    "title": "Moon Lamp",
+    "description": "A glowing crystal moon lamp showing the moon’s surface in fine detail, captured at night in my room at Lohit Hostel, IIT Guwahati. The texture beautifully reflects the moon’s craters when lit.",
+    "category": "Astro Lamp",
     "thumbnail": "./images/Go1SZuyW0AAtSzG-thumb.jpg",
     "image": "./images/Go1SZuyW0AAtSzG.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
+    "location": "Lohit Hostel, IIT Guwahati, Assam, India",
+    "date": "2025-04-19",
+    "camera": "Redmi A4 5G",
     "tags": [
-      "None"
+      "moon",
+      "lamp",
+      "astro",
+      "light",
+      "room",
+      "night"
     ]
   },
   {
     "id": 19,
-    "title": "Go4JdcNXAAA-moR",
-    "description": "NaN",
-    "category": "None",
+    "title": "Solar System Lamp",
+    "description": "A mesmerizing crystal sphere depicting the solar system floating in tiny bubbles of light. Captured at night under soft illumination in my room at Lohit Hostel, IIT Guwahati.",
+    "category": "Astro Lamp",
     "thumbnail": "./images/Go4JdcNXAAA-moR-thumb.jpg",
     "image": "./images/Go4JdcNXAAA-moR.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
+    "location": "Lohit Hostel, IIT Guwahati, Assam, India",
+    "date": "2025-04-19",
+    "camera": "Redmi A4 5G",
     "tags": [
-      "None"
-    ]
-  },
-  {
-    "id": 20,
-    "title": "Gs3QLRXbEAAvS8Z",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/Gs3QLRXbEAAvS8Z-thumb.jpg",
-    "image": "./images/Gs3QLRXbEAAvS8Z.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
-    "tags": [
-      "None"
+      "solar system",
+      "lamp",
+      "astro",
+      "night",
+      "light",
+      "crystal"
     ]
   }
 ]

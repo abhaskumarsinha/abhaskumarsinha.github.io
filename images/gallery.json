@@ -1,22 +1,16 @@
 [
   {
     "id": 1,
-    "title": "Moon in Twilight",
-    "description": "Captured a tiny bright moon visible in the twilight sky while the sun was on the other end, showing a clear contrast.",
-    "category": "Moon",
-    "thumbnail": ".//home/runner/work/abhaskumarsinha.github.io/abhaskumarsinha.github.io/images/G2VXVUGWQAAUSQR-thumb.jpg",
-    "image": ".//home/runner/work/abhaskumarsinha.github.io/abhaskumarsinha.github.io/images/G2VXVUGWQAAUSQR.jpg",
-    "location": "Lohit Hostel, IIT Guwahati, Assam, India",
-    "date": "2025-10-03",
-    "camera": "Redmi A4 5G",
+    "title": "G2VXVUGWQAAUSQR",
+    "description": "NaN",
+    "category": "None",
+    "thumbnail": "./images/G2VXVUGWQAAUSQR-thumb.jpg",
+    "image": "./images/G2VXVUGWQAAUSQR.jpg",
+    "location": "None",
+    "date": "2000-01-01",
+    "camera": "None",
     "tags": [
-      [
-        "moon",
-        "twilight",
-        "sky",
-        "sunset",
-        "night"
-      ]
+      "None"
     ]
   },
   {
@@ -24,8 +18,8 @@
     "title": "photo",
     "description": "NaN",
     "category": "None",
-    "thumbnail": "./images/photo-thumb.jpg",
-    "image": "./images/photo.jpg",
+    "thumbnail": ".//home/runner/work/abhaskumarsinha.github.io/abhaskumarsinha.github.io/images/photo-thumb.jpg",
+    "image": ".//home/runner/work/abhaskumarsinha.github.io/abhaskumarsinha.github.io/images/photo.jpg",
     "location": "None",
     "date": "2000-01-01",
     "camera": "None",

@@ -4,7 +4,7 @@ scripts/update_gallery.py
 
 - Update /images/gallery.json automatically
 - Ensure every .jpg has a corresponding -thumb.jpg
-- Add new entries for new images, preserve old entries
+- Add new entries for new images, preserve old entries and metadata
 """
 
 import json
@@ -81,12 +81,14 @@ def main():
         print(f"No images directory found at {IMAGES_DIR}. Exiting.")
         return
 
-    # Load existing gallery and create a lookup map by image path
+    # Load existing gallery
     gallery = load_gallery()
-    gallery_map = {entry["image"]: entry for entry in gallery}
+    existing_images = {entry["image"]: entry for entry in gallery}
 
-    # Scan for images
+    # Scan images folder
     images = [p for p in IMAGES_DIR.iterdir() if p.is_file() and is_image_file(p)]
+    new_entries = []
+
     for img in images:
         if img.stem.lower().endswith(THUMB_SUFFIX.lstrip("-")):
             continue  # skip thumbnails
@@ -98,19 +100,23 @@ def main():
         rel_image_path = f"./images/{img.name}"
         rel_thumb_path = f"./images/{thumb_path.name}"
 
-        if rel_image_path not in gallery_map:
-            # New entry
+        if rel_image_path not in existing_images:
+            # Add new entry without touching existing ones
             entry = default_entry(img.name)
             entry["thumbnail"] = rel_thumb_path
             entry["image"] = rel_image_path
-            gallery.append(entry)
+            new_entries.append(entry)
         else:
-            # Ensure thumbnail path is correct
-            gallery_map[rel_image_path]["thumbnail"] = rel_thumb_path
+            # Update thumbnail path if changed
+            existing_images[rel_image_path]["thumbnail"] = rel_thumb_path
 
-    # Assign stable incremental IDs starting from 1
-    for idx, entry in enumerate(sorted(gallery, key=lambda x: x["image"]), start=1):
-        entry["id"] = idx
+    # Assign IDs only to new entries (existing ones keep their original IDs)
+    max_id = max([entry["id"] for entry in gallery if entry.get("id")], default=0)
+    for i, entry in enumerate(new_entries, start=max_id + 1):
+        entry["id"] = i
+
+    # Merge old and new entries
+    gallery.extend(new_entries)
 
     save_gallery(gallery)
 

@@ -1,240 +1,328 @@
 [
   {
-    "id": 1,
-    "title": "GudOshKaAAAhTNv",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/GudOshKaAAAhTNv-thumb.jpg",
-    "image": "./images/GudOshKaAAAhTNv.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
+    "id": 16,
+    "title": "Moon in the blue sky",
+    "description": "Capturing the image of the moon in the blue sky before full night showcasing contrast of the white spot over blues.",
+    "category": "Moon",
+    "thumbnail": "./images/photo-thumb.jpg",
+    "image": "./images/photo.jpg",
+    "location": "Lohit Hostel, Guwahati, IIT Guwahati, Assam, India",
+    "date": "2025-10-03",
+    "camera": "Redmi A4 5G",
     "tags": [
-      "None"
-    ]
-  },
-  {
-    "id": 2,
-    "title": "GudOr73asAEWlJd",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/GudOr73asAEWlJd-thumb.jpg",
-    "image": "./images/GudOr73asAEWlJd.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
-    "tags": [
-      "None"
+      "sunset",
+      "Moon",
+      "twilight",
+      "Sky",
+      "Clouds"
     ]
   },
   {
     "id": 3,
-    "title": "G0HOeM5WIAAJiDl",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/G0HOeM5WIAAJiDl-thumb.jpg",
-    "image": "./images/G0HOeM5WIAAJiDl.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
-    "tags": [
-      "None"
-    ]
-  },
-  {
-    "id": 4,
-    "title": "GxLuIsNboAAPFJI",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/GxLuIsNboAAPFJI-thumb.jpg",
-    "image": "./images/GxLuIsNboAAPFJI.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
-    "tags": [
-      "None"
-    ]
-  },
-  {
-    "id": 5,
-    "title": "Gx1TfS0XIAA_Qmo",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/Gx1TfS0XIAA_Qmo-thumb.jpg",
-    "image": "./images/Gx1TfS0XIAA_Qmo.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
-    "tags": [
-      "None"
-    ]
-  },
-  {
-    "id": 6,
-    "title": "photo",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/photo-thumb.jpg",
-    "image": "./images/photo.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
-    "tags": [
-      "None"
-    ]
-  },
-  {
-    "id": 7,
-    "title": "Gs2hnijWcAABSJJ",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/Gs2hnijWcAABSJJ-thumb.jpg",
-    "image": "./images/Gs2hnijWcAABSJJ.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
-    "tags": [
-      "None"
-    ]
-  },
-  {
-    "id": 8,
-    "title": "Gs3QLRXbEAAvS8Z",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/Gs3QLRXbEAAvS8Z-thumb.jpg",
-    "image": "./images/Gs3QLRXbEAAvS8Z.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
-    "tags": [
-      "None"
-    ]
-  },
-  {
-    "id": 9,
-    "title": "G2VXVUGX0AAUStx",
-    "description": "NaN",
-    "category": "None",
+    "title": "Twilight over IIT Guwahati",
+    "description": "Twilight in cloudy weather with the sun hidden behind clouds, viewed from Lohit Hostel, featuring Siang Hostel, the cricket ground, and IIT Guwahati campus nestled among surrounding hills.",
+    "category": "Landscape",
     "thumbnail": "./images/G2VXVUGX0AAUStx-thumb.jpg",
     "image": "./images/G2VXVUGX0AAUStx.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
+    "location": "IIT Guwahati, Assam, India",
+    "date": "2025-10-03",
+    "camera": "Redmi A4 5G",
     "tags": [
-      "None"
+      "twilight",
+      "cloudy",
+      "IIT Guwahati",
+      "Lohit Hostel",
+      "Siang Hostel",
+      "cricket ground",
+      "campus",
+      "hills"
     ]
   },
   {
     "id": 10,
-    "title": "GvqshbSW4AAcENO",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/GvqshbSW4AAcENO-thumb.jpg",
-    "image": "./images/GvqshbSW4AAcENO.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
+    "title": "Afternoon Clouds over Hills",
+    "description": "Clouds and landscape viewed from a flight from Guwahati to Bagdogra Airport in the afternoon. Greens, hills, and small water streams are visible. Captured with a Redmi A4 5G.",
+    "category": "Aerial / Landscape",
+    "thumbnail": "./images/GudOshKaAAAhTNv-thumb.jpg",
+    "image": "./images/GudOshKaAAAhTNv.jpg",
+    "location": "En route: Guwahati to Bagdogra, India",
+    "date": "2025-06-27",
+    "camera": "Redmi A4 5G",
     "tags": [
-      "None"
+      "clouds",
+      "aerial",
+      "hills",
+      "greenery",
+      "water streams",
+      "flight",
+      "Redmi A4 5G"
     ]
   },
   {
-    "id": 11,
-    "title": "Gr-Y45WWUAAorsH",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/Gr-Y45WWUAAorsH-thumb.jpg",
-    "image": "./images/Gr-Y45WWUAAorsH.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
+    "id": 8,
+    "title": "Billi the Cat at Lohit Canteen",
+    "description": "Close-up of Billi, an Indian cat, at Lohit Canteen, IIT Guwahati. Captured on June 27, 2025.",
+    "category": "Animal / Portrait",
+    "thumbnail": "./images/GudOr73asAEWlJd-thumb.jpg",
+    "image": "./images/GudOr73asAEWlJd.jpg",
+    "location": "Lohit Canteen, IIT Guwahati, Assam, India",
+    "date": "2025-06-27",
+    "camera": "Redmi A4 5G",
     "tags": [
-      "None"
+      "cat",
+      "Billi",
+      "portrait",
+      "Lohit Canteen",
+      "IIT Guwahati",
+      "animal"
     ]
   },
   {
-    "id": 12,
-    "title": "GudOsBfagAAVAcT",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/GudOsBfagAAVAcT-thumb.jpg",
-    "image": "./images/GudOsBfagAAVAcT.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
+    "id": 1,
+    "title": "Full Moon over IIT Guwahati",
+    "description": "Small full moon viewed from Lohit Hostel, IIT Guwahati at night. Hills, clouds, and the campus are softly illuminated by moonlight and street lights. Captured with a Redmi A4 5G on September 6, 2025.",
+    "category": "Night / Landscape",
+    "thumbnail": "./images/G0HOeM5WIAAJiDl-thumb.jpg",
+    "image": "./images/G0HOeM5WIAAJiDl.jpg",
+    "location": "Lohit Hostel, IIT Guwahati, Assam, India",
+    "date": "2025-09-06",
+    "camera": "Redmi A4 5G",
     "tags": [
-      "None"
-    ]
-  },
-  {
-    "id": 13,
-    "title": "GxLuImBaIAE2bgP",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/GxLuImBaIAE2bgP-thumb.jpg",
-    "image": "./images/GxLuImBaIAE2bgP.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
-    "tags": [
-      "None"
-    ]
-  },
-  {
-    "id": 14,
-    "title": "G2Me-1cWwAAoxM3",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/G2Me-1cWwAAoxM3-thumb.jpg",
-    "image": "./images/G2Me-1cWwAAoxM3.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
-    "tags": [
-      "None"
+      "full moon",
+      "night",
+      "moonlight",
+      "IIT Guwahati",
+      "Lohit Hostel",
+      "hills",
+      "clouds",
+      "campus"
     ]
   },
   {
     "id": 15,
-    "title": "Gs2hnewXoAA0mZt",
-    "description": "NaN",
-    "category": "None",
+    "title": "Ducks Returning to IIT Guwahati Lake",
+    "description": "Ducks returning to the main lake at IIT Guwahati in groups, captured in portrait mode. A few lotus plants are visible around the lake. Taken on July 31, 2025 with a Redmi A4 5G.",
+    "category": "Wildlife / Nature",
+    "thumbnail": "./images/GxLuIsNboAAPFJI-thumb.jpg",
+    "image": "./images/GxLuIsNboAAPFJI.jpg",
+    "location": "IIT Guwahati Main Lake, Assam, India",
+    "date": "2025-07-31",
+    "camera": "Redmi A4 5G",
+    "tags": [
+      "ducks",
+      "lake",
+      "IIT Guwahati",
+      "lotus",
+      "wildlife",
+      "nature",
+      "portrait"
+    ]
+  },
+  {
+    "id": 13,
+    "title": "Solar System Lamp on Table",
+    "description": "A small lamp featuring a solar system inside a round glass that lights up, placed on a table. Captured on July 17, 2025 with a Redmi A4 5G.",
+    "category": "Still Life / Indoor",
+    "thumbnail": "./images/Gx1TfS0XIAA_Qmo-thumb.jpg",
+    "image": "./images/Gx1TfS0XIAA_Qmo.jpg",
+    "location": "Indoor, Table Setup",
+    "date": "2025-07-17",
+    "camera": "Redmi A4 5G",
+    "tags": [
+      "lamp",
+      "solar system",
+      "table",
+      "still life",
+      "indoor",
+      "decor"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Full Moon over IIT Guwahati",
+    "description": "Small full moon viewed from Lohit Hostel, IIT Guwahati at night. Hills, clouds, and the campus are softly illuminated by moonlight and street lights. Captured with a Redmi A4 5G on September 6, 2025.",
+    "category": "Night / Landscape",
+    "thumbnail": "./images/G0HOeM5WIAAJiDl-thumb.jpg",
+    "image": "./images/G0HOeM5WIAAJiDl.jpg",
+    "location": "Lohit Hostel, IIT Guwahati, Assam, India",
+    "date": "2025-09-06",
+    "camera": "Redmi A4 5G",
+    "tags": [
+      "full moon",
+      "night",
+      "moonlight",
+      "IIT Guwahati",
+      "Lohit Hostel",
+      "hills",
+      "clouds",
+      "campus"
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Joaquin Phoenix Portrait Drawing",
+    "description": "Black-and-white portrait shading drawing of Joaquin Phoenix (The Joker movie) done on paper using 2B 2mm mechanical pencil lead. Signed by the artist. Created on July 12, 2025.",
+    "category": "Art / Sketch",
+    "thumbnail": "./images/GvqshbSW4AAcENO-thumb.jpg",
+    "image": "./images/GvqshbSW4AAcENO.jpg",
+    "location": "Indoor, Personal Artwork",
+    "date": "2025-07-12",
+    "camera": "None",
+    "tags": [
+      "portrait",
+      "drawing",
+      "Joaquin Phoenix",
+      "The Joker",
+      "sketch",
+      "black and white",
+      "pencil",
+      "artwork"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Ducks on IIT Guwahati Lake Footpath",
+    "description": "Ducks walking on the footpath in front of IIT Guwahati Lake during the monsoon. Captured on May 27, 2025 with a Redmi A4 5G.",
+    "category": "Wildlife / Nature",
+    "thumbnail": "./images/Gr-Y45WWUAAorsH-thumb.jpg",
+    "image": "./images/Gr-Y45WWUAAorsH.jpg",
+    "location": "IIT Guwahati Lake, Assam, India",
+    "date": "2025-05-27",
+    "camera": "Redmi A4 5G",
+    "tags": [
+      "ducks",
+      "IIT Guwahati",
+      "lake",
+      "footpath",
+      "monsoon",
+      "wildlife",
+      "nature"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Take-off from Bagdogra with Guwahati View",
+    "description": "View of Guwahati city during take-off from Bagdogra Airport. Captured from the plane, showing cityscape and surrounding terrain. Taken with a Redmi A4 5G.",
+    "category": "Aerial / Cityscape",
+    "thumbnail": "./images/GudOsBfagAAVAcT-thumb.jpg",
+    "image": "./images/GudOsBfagAAVAcT.jpg",
+    "location": "Bagdogra Airport, India (en route to Guwahati)",
+    "date": "2025-06-03",
+    "camera": "Redmi A4 5G",
+    "tags": [
+      "Bagdogra",
+      "Guwahati",
+      "cityscape",
+      "take-off",
+      "aerial",
+      "flight",
+      "Redmi A4 5G"
+    ]
+  },
+  {
+    "id": 14,
+    "title": "Ducks at IIT Guwahati Lake (Landscape)",
+    "description": "Ducks moving around IIT Guwahati Lake in various directions on a sunny day, captured in landscape orientation. Taken with a Redmi A4 5G.",
+    "category": "Wildlife / Nature",
+    "thumbnail": "./images/GxLuImBaIAE2bgP-thumb.jpg",
+    "image": "./images/GxLuImBaIAE2bgP.jpg",
+    "location": "IIT Guwahati Lake, Assam, India",
+    "date": "2025-07-31",
+    "camera": "Redmi A4 5G",
+    "tags": [
+      "ducks",
+      "IIT Guwahati",
+      "lake",
+      "landscape",
+      "sunny day",
+      "wildlife",
+      "nature"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Post-Rainview from Lohit Hostel",
+    "description": "Captured on October 1, 2025, after rainfall from Lohit Hostel, IIT Guwahati. Clear cloudy skies, high visibility, and lush greenery around the hills are visible, with water puddles covering the helipad and cricket ground.",
+    "category": "Landscape / Nature",
+    "thumbnail": "./images/G2Me-1cWwAAoxM3-thumb.jpg",
+    "image": "./images/G2Me-1cWwAAoxM3.jpg",
+    "location": "Lohit Hostel, IIT Guwahati, Assam, India",
+    "date": "2025-10-01",
+    "camera": "Redmi A4 5G",
+    "tags": [
+      "rain",
+      "post-rain",
+      "Lohit Hostel",
+      "IIT Guwahati",
+      "cloudy skies",
+      "green hills",
+      "helipad",
+      "cricket ground",
+      "nature",
+      "landscape"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Sunny Day from Lohit Hostel",
+    "description": "Captured on June 7, 2025, from Lohit Hostel, IIT Guwahati on a bright, sunny day. Clear blue skies, warm sunlight, and lush greenery of the campus and surrounding hills are visible.",
+    "category": "Landscape / Nature",
     "thumbnail": "./images/Gs2hnewXoAA0mZt-thumb.jpg",
     "image": "./images/Gs2hnewXoAA0mZt.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
+    "location": "Lohit Hostel, IIT Guwahati, Assam, India",
+    "date": "2025-06-07",
+    "camera": "Redmi A4 5G",
     "tags": [
-      "None"
+      "sunny",
+      "Lohit Hostel",
+      "IIT Guwahati",
+      "blue sky",
+      "bright",
+      "warm",
+      "green hills",
+      "landscape",
+      "nature"
     ]
   },
   {
-    "id": 16,
-    "title": "Gs2vL0qbAAAXeaz",
-    "description": "NaN",
-    "category": "None",
+    "id": 6,
+    "title": "Kitten at Hostel Door",
+    "description": "Captured on June 7, 2025, a cute Indian kitten visiting the Lohit Hostel door, meowing and waiting for food. Taken outside the room with a Redmi A4 5G.",
+    "category": "Animal / Portrait",
     "thumbnail": "./images/Gs2vL0qbAAAXeaz-thumb.jpg",
     "image": "./images/Gs2vL0qbAAAXeaz.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
+    "location": "Lohit Hostel, IIT Guwahati, Assam, India",
+    "date": "2025-06-07",
+    "camera": "Redmi A4 5G",
     "tags": [
-      "None"
+      "kitten",
+      "cat",
+      "Lohit Hostel",
+      "IIT Guwahati",
+      "portrait",
+      "animal",
+      "Indian cat"
     ]
   },
   {
-    "id": 17,
-    "title": "GvqshcdbsAAlDps",
-    "description": "NaN",
-    "category": "None",
+    "id": 12,
+    "title": "Scanned Joaquin Phoenix Drawing",
+    "description": "Scanned version of the black-and-white portrait shading drawing of Joaquin Phoenix (The Joker movie) done on paper with 2B 2mm mechanical pencil lead. Signed by the artist.",
+    "category": "Art / Sketch",
     "thumbnail": "./images/GvqshcdbsAAlDps-thumb.jpg",
     "image": "./images/GvqshcdbsAAlDps.jpg",
-    "location": "None",
-    "date": "2000-01-01",
+    "location": "Indoor, Personal Artwork",
+    "date": "2025-07-12",
     "camera": "None",
     "tags": [
-      "None"
+      "scanned",
+      "drawing",
+      "portrait",
+      "Joaquin Phoenix",
+      "The Joker",
+      "sketch",
+      "black and white",
+      "artwork"
     ]
-  }
+  },
 ]

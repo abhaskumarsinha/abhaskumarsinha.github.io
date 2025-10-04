@@ -25,5 +25,10 @@ jobs:
           echo "Contents of current folder:"
           ls -R
 
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install Pillow
+
       - name: Run gallery update script
         run: python3 scripts/update_gallery.py

@@ -33,10 +33,11 @@ jobs:
       - name: Run gallery update script
         run: python3 scripts/update_gallery.py
 
-      - name: Commit and push gallery.json
+      - name: Commit and push gallery updates
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add images/*
-          git diff --cached --quiet || (git commit -m "Update gallery.json" && git push)
+          git add -A images/
+          git status
+          git diff --cached --quiet || (git commit -m "Update gallery.json and thumbnails" && git push)
 

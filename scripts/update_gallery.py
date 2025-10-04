@@ -13,7 +13,9 @@ from pathlib import Path
 from PIL import Image
 import sys
 
-IMAGES_DIR = Path("images")
+# Resolve paths relative to the script's location
+BASE_DIR = Path(__file__).resolve().parent.parent
+IMAGES_DIR = BASE_DIR / "images"
 GALLERY_PATH = IMAGES_DIR / "gallery.json"
 THUMB_SUFFIX = "-thumb"
 THUMB_SIZE = (400, 400)   # output thumbnail dimensions (px)

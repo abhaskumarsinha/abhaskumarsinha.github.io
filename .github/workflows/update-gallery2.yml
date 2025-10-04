@@ -1,27 +1,14 @@
 name: Update Gallery JSON
 
 on:
-  workflow_dispatch:  # manual trigger from GitHub Actions UI
+  workflow_dispatch:
 
 jobs:
-  update-gallery:
-    runs-on: ubuntu-latest
-
+  run gallery script:
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: deploy to staging
+      runs-on: ubuntu-latest
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
-
-      - name: Debug directory structure
-        run: |
-          echo "Working directory is:"
-          pwd
-          echo "Contents of current folder:"
-          ls -R
-
-      - name: Run gallery update script
-        run: python3 scripts/update_gallery.py
+    - name: run script
+      run: ../../../scripts/update_gallery.py
+    

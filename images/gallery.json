@@ -326,25 +326,67 @@
     ]
   },
   {
-  "id": 17,
-  "title": "Sunset at IIT Guwahati Lake",
-  "description": "Captured on June 7, 2025, from IIT Guwahati Lake. Vibrant sunset colors reflect on the water beside the lake's shore, with campus offices visible on the opposite side.",
-  "category": "Landscape / Nature",
-  "thumbnail": "./images/Gs2hnijWcAABSJJ-thumb.jpg",
-  "image": "./images/Gs2hnijWcAABSJJ.jpg",
-  "location": "IIT Guwahati Lake, Assam, India",
-  "date": "2025-06-07",
-  "camera": "Redmi A4 5G",
-  "tags": [
-    "sunset",
-    "IIT Guwahati",
-    "lake",
-    "shore",
-    "vibrant colors",
-    "campus",
-    "offices",
-    "landscape",
-    "nature"
-  ]
-}
+    "id": 17,
+    "title": "Sunset at IIT Guwahati Lake",
+    "description": "Captured on June 7, 2025, from IIT Guwahati Lake. Vibrant sunset colors reflect on the water beside the lake's shore, with campus offices visible on the opposite side.",
+    "category": "Landscape / Nature",
+    "thumbnail": "./images/Gs2hnijWcAABSJJ-thumb.jpg",
+    "image": "./images/Gs2hnijWcAABSJJ.jpg",
+    "location": "IIT Guwahati Lake, Assam, India",
+    "date": "2025-06-07",
+    "camera": "Redmi A4 5G",
+    "tags": [
+      "sunset",
+      "IIT Guwahati",
+      "lake",
+      "shore",
+      "vibrant colors",
+      "campus",
+      "offices",
+      "landscape",
+      "nature"
+    ]
+  },
+  {
+    "id": 18,
+    "title": "Go1SZuyW0AAtSzG",
+    "description": "NaN",
+    "category": "None",
+    "thumbnail": "./images/Go1SZuyW0AAtSzG-thumb.jpg",
+    "image": "./images/Go1SZuyW0AAtSzG.jpg",
+    "location": "None",
+    "date": "2000-01-01",
+    "camera": "None",
+    "tags": [
+      "None"
+    ]
+  },
+  {
+    "id": 19,
+    "title": "Go4JdcNXAAA-moR",
+    "description": "NaN",
+    "category": "None",
+    "thumbnail": "./images/Go4JdcNXAAA-moR-thumb.jpg",
+    "image": "./images/Go4JdcNXAAA-moR.jpg",
+    "location": "None",
+    "date": "2000-01-01",
+    "camera": "None",
+    "tags": [
+      "None"
+    ]
+  },
+  {
+    "id": 20,
+    "title": "Gs3QLRXbEAAvS8Z",
+    "description": "NaN",
+    "category": "None",
+    "thumbnail": "./images/Gs3QLRXbEAAvS8Z-thumb.jpg",
+    "image": "./images/Gs3QLRXbEAAvS8Z.jpg",
+    "location": "None",
+    "date": "2000-01-01",
+    "camera": "None",
+    "tags": [
+      "None"
+    ]
+  }
 ]

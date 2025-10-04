@@ -325,4 +325,26 @@
       "artwork"
     ]
   },
+  {
+  "id": 17,
+  "title": "Sunset at IIT Guwahati Lake",
+  "description": "Captured on June 7, 2025, from IIT Guwahati Lake. Vibrant sunset colors reflect on the water beside the lake's shore, with campus offices visible on the opposite side.",
+  "category": "Landscape / Nature",
+  "thumbnail": "./images/Gs2hnijWcAABSJJ-thumb.jpg",
+  "image": "./images/Gs2hnijWcAABSJJ.jpg",
+  "location": "IIT Guwahati Lake, Assam, India",
+  "date": "2025-06-07",
+  "camera": "Redmi A4 5G",
+  "tags": [
+    "sunset",
+    "IIT Guwahati",
+    "lake",
+    "shore",
+    "vibrant colors",
+    "campus",
+    "offices",
+    "landscape",
+    "nature"
+  ]
+}
 ]

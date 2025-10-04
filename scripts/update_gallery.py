@@ -21,6 +21,9 @@ THUMB_SUFFIX = "-thumb"
 THUMB_SIZE = (400, 400)   # output thumbnail dimensions (px)
 
 print(f"Looking for images in: {IMAGES_DIR.resolve()}")
+print(f"Looking for images in: {IMAGES_DIR.resolve()}")
+print("Files found:", [p.name for p in IMAGES_DIR.glob('*.jpg')])
+
 
 def is_image_file(p: Path):
     return p.suffix.lower() in [".jpg", ".jpeg"]

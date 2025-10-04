@@ -1,16 +1,14 @@
 [
   {
     "id": 1,
-    "title": "photo",
-    "description": "NaN",
-    "category": "None",
+    "title": "Moon in the blue sky",
+    "description": "Capturing the image of the moon in the blue sky before full night showcasing contrast of the white spot over blues.",
+    "category": "Moon",
     "thumbnail": "./images/photo-thumb.jpg",
     "image": "./images/photo.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
-    "tags": [
-      "None"
-    ]
+    "location": "Lohit Hostel, Guwahati, IIT Guwahati, Assam, India",
+    "date": "2025-10-04",
+    "camera": "Redmi A4 5G",
+    "tags": ["sunset", "Moon", "twilight", "Sky", "Clouds"]
   }
 ]

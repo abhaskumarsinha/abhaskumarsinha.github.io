@@ -17,18 +17,26 @@
       "Clouds"
     ]
   },
-  {
-    "id": 1,
-    "title": "G2VXVUGX0AAUStx",
-    "description": "NaN",
-    "category": "None",
-    "thumbnail": "./images/G2VXVUGX0AAUStx-thumb.jpg",
-    "image": "./images/G2VXVUGX0AAUStx.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
-    "tags": [
-      "None"
-    ]
-  }
+{
+  "id": 1,
+  "title": "Twilight over IIT Guwahati",
+  "description": "Twilight in cloudy weather with the sun hidden behind clouds, viewed from Lohit Hostel, featuring Siang Hostel, the cricket ground, and IIT Guwahati campus nestled among surrounding hills.",
+  "category": "Landscape",
+  "thumbnail": "./images/G2VXVUGX0AAUStx-thumb.jpg",
+  "image": "./images/G2VXVUGX0AAUStx.jpg",
+  "location": "IIT Guwahati, Assam, India",
+  "date": "2025-10-04",
+  "camera": "Unknown",
+  "tags": [
+    "twilight",
+    "cloudy",
+    "IIT Guwahati",
+    "Lohit Hostel",
+    "Siang Hostel",
+    "cricket ground",
+    "campus",
+    "hills"
+  ]
+}
+
 ]

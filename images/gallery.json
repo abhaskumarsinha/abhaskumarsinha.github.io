@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": 2,
     "title": "Moon in the blue sky",
     "description": "Capturing the image of the moon in the blue sky before full night showcasing contrast of the white spot over blues.",
     "category": "Moon",
@@ -15,6 +15,20 @@
       "twilight",
       "Sky",
       "Clouds"
+    ]
+  },
+  {
+    "id": 1,
+    "title": "G2VXVUGX0AAUStx",
+    "description": "NaN",
+    "category": "None",
+    "thumbnail": "./images/G2VXVUGX0AAUStx-thumb.jpg",
+    "image": "./images/G2VXVUGX0AAUStx.jpg",
+    "location": "None",
+    "date": "2000-01-01",
+    "camera": "None",
+    "tags": [
+      "None"
     ]
   }
 ]

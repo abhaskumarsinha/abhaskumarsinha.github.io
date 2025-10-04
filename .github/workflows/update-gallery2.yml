@@ -1,7 +1,7 @@
 name: Update Gallery JSON
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # manual trigger from GitHub Actions UI
 
 jobs:
   update-gallery:
@@ -16,13 +16,12 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Check repo structure (debug)
+      - name: Debug directory structure
         run: |
-          echo "Current working directory:"
+          echo "Working directory is:"
           pwd
-          echo "List files in repo root:"
+          echo "Contents of current folder:"
           ls -R
 
       - name: Run gallery update script
-        run: |
-          python3 scripts/update_gallery.py
+        run: python3 scripts/update_gallery.py

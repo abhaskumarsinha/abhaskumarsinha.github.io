@@ -387,16 +387,21 @@
   },
   {
     "id": 20,
-    "title": "zMqVbnEu",
-    "description": "NaN",
-    "category": "None",
+    "title": "Close Up of the Moon",
+    "description": "Close up of the full moon captured via ulta zooming resulting in low quality closeup.",
+    "category": "Moon",
     "thumbnail": "./images/zMqVbnEu-thumb.jpg",
     "image": "./images/zMqVbnEu.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
+    "location": "Lohit Hostel, IIT Guwahati, Assam, India",
+    "date": "2025-10-07",
+    "camera": "Redmi A5 5G (Closeup)",
     "tags": [
-      "None"
+      "Moon",
+      "Low quality",
+      "Close Up".
+      "Full Moon",
+      "Night",
+      "Black and White"
     ]
   }
 ]

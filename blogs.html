@@ -445,6 +445,39 @@
                 <p style="font-size: 0.85rem; margin-top: 1rem; color: rgba(255, 255, 255, 0.5);">
                     <i class="fas fa-lock"></i> Your email is safe with us. No spam, ever.
                 </p>
+				<script>
+				  // expose as a global function so reCAPTCHA can call it
+				  window.onRecaptchaSuccess = function(token) {
+				    // token is the g-recaptcha-response string
+				    // append it to the form and submit
+				    const form = document.querySelector('.subscribe-form');
+				    if (!form) return;
+				    // remove existing token input if any
+				    const existing = form.querySelector('input[name="g-recaptcha-response"]');
+				    if (existing) existing.remove();
+				    const input = document.createElement('input');
+				    input.type = 'hidden';
+				    input.name = 'g-recaptcha-response';
+				    input.value = token;
+				    form.appendChild(input);
+				    form.submit();
+				  };
+				
+				  // trigger grecaptcha when the button is clicked
+				  document.querySelector('.subscribe-form .g-recaptcha')
+				    .addEventListener('click', function(e){
+				      e.preventDefault();
+				      // ensure grecaptcha is available
+				      if (typeof grecaptcha !== 'undefined') {
+				        grecaptcha.execute();
+				      } else {
+				        console.error('reCAPTCHA not loaded yet');
+				      }
+				    });
+				</script>
+				
+				<!-- load reCAPTCHA AFTER the global callback is defined -->
+				<script src="https://www.google.com/recaptcha/api.js" async defer></script>
             </div>
         </section>
     </main>
@@ -519,5 +552,6 @@
 </body>
 
 </html>
+
 
 

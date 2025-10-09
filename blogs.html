@@ -434,51 +434,77 @@
                 </article>
             </div>
 
-            <!-- Subscribe Section -->
-            <div class="blog-subscribe-section">
-                <h3>Stay Updated</h3>
-                <p>Subscribe to receive the latest articles on AI, research, and technology directly in your inbox</p>
-                <form class="subscribe-form" action="https://script.google.com/macros/s/AKfycbxTseQOaU_4cP2EzOQrUO5dWgdT0Kkb95-MDcajNEX-IK0e9q1gbm9MUK5lUsa48uiZ8w/exec" method="POST">
-                    <input type="email" name="email" placeholder="Enter your email address" required>
-                    <button class='g-recaptcha' data-sitekey="6LdHY-QrAAAAALX8rTZUSFyryKT9H35LeDc-BxNq" data-callback="onRecaptchaSuccess" data-action="subscribe" type="submit"><i class="fas fa-paper-plane"></i> Subscribe</button>
-                </form>
-                <p style="font-size: 0.85rem; margin-top: 1rem; color: rgba(255, 255, 255, 0.5);">
-                    <i class="fas fa-lock"></i> Your email is safe with us. No spam, ever.
-                </p>
-				<script>
-				  // expose as a global function so reCAPTCHA can call it
-				  window.onRecaptchaSuccess = function(token) {
-				    // token is the g-recaptcha-response string
-				    // append it to the form and submit
-				    const form = document.querySelector('.subscribe-form');
-				    if (!form) return;
-				    // remove existing token input if any
-				    const existing = form.querySelector('input[name="g-recaptcha-response"]');
-				    if (existing) existing.remove();
-				    const input = document.createElement('input');
-				    input.type = 'hidden';
-				    input.name = 'g-recaptcha-response';
-				    input.value = token;
-				    form.appendChild(input);
-				    form.submit();
-				  };
-				
-				  // trigger grecaptcha when the button is clicked
-				  document.querySelector('.subscribe-form .g-recaptcha')
-				    .addEventListener('click', function(e){
-				      e.preventDefault();
-				      // ensure grecaptcha is available
-				      if (typeof grecaptcha !== 'undefined') {
-				        grecaptcha.execute();
-				      } else {
-				        console.error('reCAPTCHA not loaded yet');
-				      }
-				    });
-				</script>
-				
-				<!-- load reCAPTCHA AFTER the global callback is defined -->
-				<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-            </div>
+			<!-- Subscribe Section -->
+			<div class="blog-subscribe-section">
+			  <h3>Stay Updated</h3>
+			  <p>Subscribe to receive the latest articles on AI, research, and technology directly in your inbox</p>
+			
+			  <!-- NOTE: replace the action URL & site key with your values -->
+			  <form id="subscribe-form" class="subscribe-form"
+			        action="https://script.google.com/macros/s/AKfycbxTseQOaU_4cP2EzOQrUO5dWgdT0Kkb95-MDcajNEX-IK0e9q1gbm9MUK5lUsa48uiZ8w/exec"
+			        method="POST" novalidate>
+			    <input type="email" name="email" placeholder="Enter your email address" required>
+			    <!-- persistent hidden field (so request always contains the field name) -->
+			    <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" value="">
+			    <!-- invisible reCAPTCHA button - use type="button" to avoid native submit -->
+			    <button id="subscribe-btn"
+			      class="g-recaptcha"
+			      data-sitekey="6LdHY-QrAAAAALX8rTZUSFyryKT9H35LeDc-BxNq"
+			      data-callback="onRecaptchaSuccess"
+			      data-size="invisible"
+			      type="button">
+			      <i class="fas fa-paper-plane"></i> Subscribe
+			    </button>
+			  </form>
+			
+			  <p style="font-size: 0.85rem; margin-top: 1rem; color: rgba(255, 255, 255, 0.5);">
+			    <i class="fas fa-lock"></i> Your email is safe with us. No spam, ever.
+			  </p>
+			</div>
+			
+			<script>
+			  // expose callback globally so reCAPTCHA can call it
+			  window.onRecaptchaSuccess = function(token) {
+			    // Put token into the hidden input and submit
+			    var form = document.getElementById('subscribe-form');
+			    if (!form) return;
+			    var tokenInput = document.getElementById('g-recaptcha-response');
+			    if (tokenInput) tokenInput.value = token;
+			    form.submit();
+			  };
+			
+			  // click handler triggers reCAPTCHA flow
+			  document.getElementById('subscribe-btn').addEventListener('click', function (e) {
+			    e.preventDefault();
+			
+			    // Basic HTML5 validation before running reCAPTCHA
+			    var form = document.getElementById('subscribe-form');
+			    var emailEl = form.querySelector('input[name="email"]');
+			    if (!emailEl.checkValidity()) {
+			      // trigger browser validation UI
+			      emailEl.reportValidity();
+			      return;
+			    }
+			
+			    // If grecaptcha ready, call execute. For v2 invisible, grecaptcha.execute()
+			    if (typeof grecaptcha !== 'undefined' && grecaptcha.execute) {
+			      try {
+			        grecaptcha.execute();
+			      } catch (err) {
+			        console.error('grecaptcha.execute() failed:', err);
+			        // fallback: submit anyway (will fail server-side reCAPTCHA verification)
+			        // form.submit();
+			      }
+			    } else {
+			      console.error('reCAPTCHA not loaded yet');
+			      // Optionally show a user message instead of submitting without token
+			    }
+			  });
+			</script>
+			
+			<!-- load reCAPTCHA AFTER the callback is defined -->
+			<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
         </section>
     </main>
 
@@ -552,6 +578,7 @@
 </body>
 
 </html>
+
 
 
 

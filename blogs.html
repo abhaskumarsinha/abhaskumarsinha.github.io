@@ -10,6 +10,9 @@
 	
 	  gtag('config', 'G-S28SLBF6SL');
 	</script>
+
+	<!-- Google reCAPTCHA v2 -->
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -432,17 +435,44 @@
             </div>
 
             <!-- Subscribe Section -->
-            <div class="blog-subscribe-section">
-                <h3>Stay Updated</h3>
-                <p>Subscribe to receive the latest articles on AI, research, and technology directly in your inbox</p>
-                <form class="subscribe-form" action="https://formspree.io/f/your-form-id" method="GET">
-                    <input type="email" name="email" placeholder="Enter your email address" required>
-                    <button type="submit"><i class="fas fa-paper-plane"></i> Subscribe</button>
-                </form>
-                <p style="font-size: 0.85rem; margin-top: 1rem; color: rgba(255, 255, 255, 0.5);">
-                    <i class="fas fa-lock"></i> Your email is safe with us. No spam, ever.
-                </p>
-            </div>
+            <!-- Subscribe Section -->
+			<div class="blog-subscribe-section">
+			  <h3>Stay Updated</h3>
+			  <p>Subscribe to receive the latest articles on AI, research, and technology directly in your inbox</p>
+			
+			  <!-- IMPORTANT: replace ACTION_URL with your Apps Script web app URL -->
+			  <form id="subscribe-form" action="https://script.google.com/macros/s/YOUR_DEPLOY_ID/exec" method="POST">
+			    <input type="email" name="email" placeholder="Enter your email address" required>
+			    <!-- Invisible reCAPTCHA - replace SITE_KEY with your site key -->
+			    <button
+			      class="g-recaptcha"
+			      data-sitekey="6LdHY-QrAAAAALX8rTZUSFyryKT9H35LeDc-BxNq"
+			      data-callback="onRecaptchaSuccess"
+			      data-action="subscribe"
+			      type="button">
+			      <i class="fas fa-paper-plane"></i> Subscribe
+			    </button>
+			  </form>
+			
+			  <p style="font-size: 0.85rem; margin-top: 1rem; color: rgba(255, 255, 255, 0.5);">
+			    <i class="fas fa-lock"></i> Your email is safe with us. No spam, ever.
+			  </p>
+			</div>
+			
+			<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+			<script>
+			  function onRecaptchaSuccess(token) {
+			    // With invisible reCAPTCHA we now submit the form.
+			    document.getElementById('subscribe-form').submit();
+			  }
+			
+			  // Optional: intercept click and trigger execute (safer on some sites)
+			  document.querySelector('#subscribe-form button.g-recaptcha').addEventListener('click', function(e){
+			    e.preventDefault();
+			    grecaptcha.execute(); // triggers the invisible reCAPTCHA flow, which will call onRecaptchaSuccess(token)
+			  });
+			</script>
+
         </section>
     </main>
 
@@ -516,6 +546,7 @@
 </body>
 
 </html>
+
 
 
 

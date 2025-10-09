@@ -239,6 +239,49 @@
                 flex-wrap: wrap;
             }
         }
+
+		/* --- Fix reCAPTCHA integration layout issues --- */
+		/* Prevent hidden input from breaking layout */
+		.subscribe-form input[type="hidden"] {
+		  display: none !important;
+		}
+		
+		/* Override Google's injected styles on the reCAPTCHA button */
+		.subscribe-form .g-recaptcha,
+		.subscribe-form .g-recaptcha.subscribe-button,
+		.subscribe-form button.g-recaptcha {
+		  all: unset; /* reset injected styles */
+		  display: inline-block;
+		  padding: 0.9rem 2rem;
+		  background: var(--primary-color);
+		  color: var(--background-color);
+		  border: none;
+		  border-radius: 5px;
+		  font-family: 'Space Grotesk', sans-serif;
+		  font-size: 1rem;
+		  font-weight: 600;
+		  cursor: pointer;
+		  transition: all 0.3s ease;
+		  text-align: center;
+		}
+		
+		/* Hover state identical to your original */
+		.subscribe-form .g-recaptcha:hover {
+		  background: var(--secondary-color);
+		  box-shadow: 0 0 20px rgba(0, 246, 255, 0.5);
+		  transform: translateY(-2px);
+		}
+		
+		/* Keep icon spacing intact */
+		.subscribe-form .g-recaptcha i {
+		  margin-right: 6px;
+		}
+		
+		/* Prevent layout shifts from invisible reCAPTCHA iframe */
+		.grecaptcha-badge {
+		  z-index: 10 !important;
+		}
+
     </style>
 </head>
 
@@ -447,7 +490,8 @@
 			            data-sitekey="6LdHY-QrAAAAALX8rTZUSFyryKT9H35LeDc-BxNq" 
 			            data-callback="onRecaptchaSuccess" 
 			            data-action="subscribe"
-			            type="submit">
+			            type="submit"
+						class="g-recaptcha subscribe-button">
 			      <i class="fas fa-paper-plane"></i> Subscribe
 			    </button>
 			  </form>
@@ -540,6 +584,7 @@
 </body>
 
 </html>
+
 
 
 

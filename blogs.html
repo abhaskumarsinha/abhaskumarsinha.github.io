@@ -240,48 +240,6 @@
             }
         }
 
-		/* --- Fix reCAPTCHA integration layout issues --- */
-		/* Prevent hidden input from breaking layout */
-		.subscribe-form input[type="hidden"] {
-		  display: none !important;
-		}
-		
-		/* Override Google's injected styles on the reCAPTCHA button */
-		.subscribe-form .g-recaptcha,
-		.subscribe-form .g-recaptcha.subscribe-button,
-		.subscribe-form button.g-recaptcha {
-		  all: unset; /* reset injected styles */
-		  display: inline-block;
-		  padding: 0.9rem 2rem;
-		  background: var(--primary-color);
-		  color: var(--background-color);
-		  border: none;
-		  border-radius: 5px;
-		  font-family: 'Space Grotesk', sans-serif;
-		  font-size: 1rem;
-		  font-weight: 600;
-		  cursor: pointer;
-		  transition: all 0.3s ease;
-		  text-align: center;
-		}
-		
-		/* Hover state identical to your original */
-		.subscribe-form .g-recaptcha:hover {
-		  background: var(--secondary-color);
-		  box-shadow: 0 0 20px rgba(0, 246, 255, 0.5);
-		  transform: translateY(-2px);
-		}
-		
-		/* Keep icon spacing intact */
-		.subscribe-form .g-recaptcha i {
-		  margin-right: 6px;
-		}
-		
-		/* Prevent layout shifts from invisible reCAPTCHA iframe */
-		.grecaptcha-badge {
-		  z-index: 10 !important;
-		}
-
     </style>
 </head>
 
@@ -478,28 +436,22 @@
             </div>
 
 			<!-- Subscribe Section -->
-			<!-- Subscribe Section -->
-			<div class="blog-subscribe-section">
-			  <h3>Stay Updated</h3>
-			  <p>Subscribe to receive the latest articles on AI, research, and technology directly in your inbox</p>
+			<form id="subscribe-form" class="subscribe-form" action="https://script.google.com/macros/s/AKfycbxTseQOaU_4cP2EzOQrUO5dWgdT0Kkb95-MDcajNEX-IK0e9q1gbm9MUK5lUsa48uiZ8w/exec" method="POST">
+			  <input type="email" name="email" placeholder="Enter your email address" required>
 			
-			  <form id="subscribe-form" action="https://script.google.com/macros/s/AKfycbxTseQOaU_4cP2EzOQrUO5dWgdT0Kkb95-MDcajNEX-IK0e9q1gbm9MUK5lUsa48uiZ8w/exec" method="POST">
-			    <input type="email" name="email" placeholder="Enter your email address" required>
-			    <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
-			    <button class="g-recaptcha" 
-			            data-sitekey="6LdHY-QrAAAAALX8rTZUSFyryKT9H35LeDc-BxNq" 
-			            data-callback="onRecaptchaSuccess" 
-			            data-action="subscribe"
-			            type="submit"
-						class="g-recaptcha subscribe-button">
-			      <i class="fas fa-paper-plane"></i> Subscribe
-			    </button>
-			  </form>
+			  <!-- hidden token -->
+			  <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
 			
-			  <p style="font-size: 0.85rem; margin-top: 1rem; color: rgba(255, 255, 255, 0.5);">
-			    <i class="fas fa-lock"></i> Your email is safe with us. No spam, ever.
-			  </p>
-			</div>
+			  <!-- single class attribute only -->
+			  <button
+			    class="g-recaptcha subscribe-button"
+			    data-sitekey="6LdHY-QrAAAAALX8rTZUSFyryKT9H35LeDc-BxNq"
+			    data-callback="onRecaptchaSuccess"
+			    data-action="subscribe"
+			    type="submit">
+			    <i class="fas fa-paper-plane"></i> Subscribe
+			  </button>
+			</form>
 			
 			<script>
 			  function onRecaptchaSuccess(token) {
@@ -507,9 +459,10 @@
 			    document.getElementById('subscribe-form').submit();
 			  }
 			</script>
-
-			<!-- load reCAPTCHA AFTER the callback is defined -->
+			
+			<!-- your original script include (ok for invisible v2 if you used that) -->
 			<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 
         </section>
     </main>
@@ -584,6 +537,7 @@
 </body>
 
 </html>
+
 
 
 

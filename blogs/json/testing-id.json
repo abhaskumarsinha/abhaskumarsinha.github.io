@@ -1,0 +1,80 @@
+{
+  "id": "testing-id",
+  "title": "Testing ID here",
+  "date": "October 11, 2025",
+  "readTime": "12 min read",
+  "views": "1.2k",
+  "tags": [
+    "AI",
+    "ML",
+    "CV"
+  ],
+  "author": {
+    "name": "Abhas Kumar Sinha",
+    "initials": "AS",
+    "bio": "Test",
+    "social": {
+      "github": "https://www.github.com/abhaskumarsinha/",
+      "linkedin": "https://www.linkedin.com/in/abhas-kumar-sinha/",
+      "email": "abhaskumarsinha@gmail.com",
+      "twitter": ""
+    }
+  },
+  "tableOfContents": [
+    {
+      "id": "introduction",
+      "title": "Introduction"
+    },
+    {
+      "id": "test-2",
+      "title": "Test 2"
+    },
+    {
+      "id": "test-3",
+      "title": "Test 3"
+    }
+  ],
+  "sections": [
+    {
+      "type": "heading",
+      "level": 2,
+      "id": "introduction",
+      "content": "Introduction"
+    },
+    {
+      "type": "paragraph",
+      "content": "Just write"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "id": "test-2",
+      "content": "Test 2"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "label": "Python (PyTorch)",
+      "content": "import torch"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "id": "test-3",
+      "content": "Test 3"
+    },
+    {
+      "type": "math",
+      "display": true,
+      "label": "Loss Function:",
+      "content": "\\mathcal{L} = ..."
+    },
+	{
+      "type": "heading",
+      "level": 3,
+      "id": "test-2",
+      "content": "Test 2"
+    }
+  ],
+  "relatedArticles": []
+}

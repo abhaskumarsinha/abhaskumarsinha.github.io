@@ -1,0 +1,382 @@
+/* Add these styles to your existing styles.css file */
+
+/* Page Hero Section */
+.page-hero {
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem 2rem;
+}
+
+.page-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 1rem;
+    max-width: 600px;
+}
+
+/* Logo Link */
+.logo a {
+    text-decoration: none;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Page Content Section */
+.page-content {
+    padding: 2rem 2rem 5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Content Grid Layout (Projects, Publications) */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.content-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 0 15px rgba(0, 246, 255, 0.1);
+    transform-style: preserve-3d;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 246, 255, 0.1) 50%, transparent 70%);
+    transform: rotate(0deg);
+    transition: transform 0.6s ease;
+}
+
+.content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(0, 246, 255, 0.4), 0 0 60px rgba(112, 0, 255, 0.2);
+}
+
+.content-card:hover::before {
+    transform: rotate(180deg);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.card-header h3 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.card-tag {
+    background: rgba(0, 246, 255, 0.2);
+    color: var(--primary-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.card-description {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin: 1rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.card-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    position: relative;
+    z-index: 1;
+}
+
+.card-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card-meta i {
+    color: var(--primary-color);
+}
+
+.card-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.card-link:hover {
+    background: var(--primary-color);
+    color: var(--background-color);
+    box-shadow: 0 0 15px rgba(0, 246, 255, 0.5);
+}
+
+/* Content List Layout (Blog) */
+.content-list {
+    max-width: 900px;
+    margin: 2rem auto;
+}
+
+.list-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-left: 3px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.list-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 30px rgba(0, 246, 255, 0.2);
+    transform: translateX(5px);
+}
+
+.list-item-content h3 {
+    margin: 0 0 1rem 0;
+}
+
+.list-item-content h3 a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.8rem;
+    transition: color 0.3s ease;
+}
+
+.list-item-content h3 a:hover {
+    color: var(--primary-color);
+}
+
+.list-item-excerpt {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    margin: 1rem 0;
+}
+
+.list-item-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 1rem;
+}
+
+.list-item-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.list-item-meta i {
+    color: var(--primary-color);
+}
+
+/* Contact Page Styles */
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.contact-info h3 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.contact-info p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-method {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.contact-method:hover {
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 20px rgba(0, 246, 255, 0.2);
+}
+
+.contact-method i {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-top: 0.2rem;
+}
+
+.contact-method h4 {
+    color: var(--text-color);
+    margin: 0 0 0.3rem 0;
+}
+
+.contact-method a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-method a:hover {
+    color: var(--primary-color);
+}
+
+/* Contact Form */
+.contact-form {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 246, 255, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 246, 255, 0.3);
+    border-radius: 5px;
+    color: var(--text-color);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(0, 246, 255, 0.2);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form .cta-button {
+    width: 100%;
+    margin-top: 1rem;
+	color: black;
+}
+
+/* Responsive Design for Internal Pages */
+@media (max-width: 968px) {
+    .content-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .page-hero {
+        min-height: 40vh;
+        padding: 6rem 1rem 3rem 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .page-subtitle {
+        font-size: 1rem;
+    }
+    
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .card-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .card-links {
+        flex-direction: column;
+    }
+    
+    .card-link {
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .list-item-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

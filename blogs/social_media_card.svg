@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Dark Background -->
+  <rect width="1200" height="630" fill="#0d0d0f"></rect>
+
+  <!-- Particle network -->
+  <g stroke="#333" stroke-width="1">
+    <line x1="200" y1="150" x2="400" y2="80"></line>
+    <line x1="400" y1="80" x2="600" y2="200"></line>
+    <line x1="600" y1="200" x2="900" y2="100"></line>
+    <line x1="900" y1="100" x2="1000" y2="300"></line>
+    <line x1="200" y1="150" x2="300" y2="300"></line>
+    <line x1="300" y1="300" x2="600" y2="200"></line>
+    <line x1="600" y1="200" x2="800" y2="400"></line>
+    <line x1="800" y1="400" x2="1000" y2="300"></line>
+  </g>
+  <g fill="#666">
+    <circle cx="200" cy="150" r="6"></circle>
+    <circle cx="400" cy="80" r="6"></circle>
+    <circle cx="600" cy="200" r="6"></circle>
+    <circle cx="900" cy="100" r="6"></circle>
+    <circle cx="1000" cy="300" r="6"></circle>
+    <circle cx="300" cy="300" r="6"></circle>
+    <circle cx="800" cy="400" r="6"></circle>
+  </g>
+
+  <!-- Logo -->
+  <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Space Grotesk, sans-serif" font-size="180" font-weight="700" fill="url(#asGradient)" stroke="#ffffff" stroke-width="3" paint-order="stroke">
+    AS
+  </text>
+
+  <!-- Gradient for Logo (same as your site logo colors) -->
+  <defs>
+    <linearGradient id="asGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f6ff"></stop>
+      <stop offset="100%" stop-color="#7000ff"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Subtitle -->
+  <text x="50%" y="75%" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="36" font-weight="400" fill="#aaa" opacity="0.85">
+    AI Research • PhD @ IIT Guwahati • Deep Learning &amp; Systems
+  </text>
+</svg>

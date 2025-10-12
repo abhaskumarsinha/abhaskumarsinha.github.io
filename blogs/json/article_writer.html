@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Editor - Markdown to JSON</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .tab-active {
+            color: #2563eb;
+            border-bottom: 2px solid #2563eb;
+        }
+        .tab-inactive {
+            color: #4b5563;
+        }
+        .tab-inactive:hover {
+            color: #111827;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen">
+        <div class="max-w-7xl mx-auto p-6">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <!-- Header -->
+                <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            <div>
+                                <h1 class="text-2xl font-bold">Article Editor</h1>
+                                <p class="text-blue-100 text-sm">Markdown to JSON Compiler</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="copyJSON()" id="copyBtn" class="flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                                <span id="copyText">Copy JSON</span>
+                            </button>
+                            <button onclick="downloadJSON()" class="flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex border-b">
+                    <button onclick="switchTab('edit')" id="tab-edit" class="tab-active flex items-center gap-2 px-6 py-3 font-medium transition-colors">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        Editor
+                    </button>
+                    <button onclick="switchTab('json')" id="tab-json" class="tab-inactive flex items-center gap-2 px-6 py-3 font-medium transition-colors">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                        JSON Output
+                    </button>
+                </div>
+
+                <!-- Content -->
+                <div class="p-6">
+                    <!-- Editor Tab -->
+                    <div id="content-edit" class="space-y-6">
+                        <!-- Metadata Section -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Article ID *</label>
+                                <input type="text" id="articleId" placeholder="e.g., multimodal-ai" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+                                <input type="text" id="title" placeholder="Article title" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Read Time</label>
+                                <input type="text" id="readTime" placeholder="e.g., 12 min read" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Views</label>
+                                <input type="text" id="views" value="0" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            <div class="col-span-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Tags (comma-separated)</label>
+                                <input type="text" id="tags" placeholder="e.g., AI & ML, Computer Vision" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                        </div>
+
+                        <!-- Author Section -->
+                        <div class="border-t pt-6">
+                            <h3 class="text-lg font-semibold mb-4">Author Information</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+                                    <input type="text" id="authorName" placeholder="Author name" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Initials</label>
+                                    <input type="text" id="authorInitials" placeholder="e.g., AS" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                                <div class="col-span-2">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                                    <textarea id="authorBio" placeholder="Author bio" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">GitHub</label>
+                                    <input type="url" id="github" placeholder="GitHub URL" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">LinkedIn</label>
+                                    <input type="url" id="linkedin" placeholder="LinkedIn URL" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                    <input type="email" id="email" placeholder="Email address" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Twitter</label>
+                                    <input type="url" id="twitter" placeholder="Twitter URL" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Markdown Editor -->
+                        <div class="border-t pt-6">
+                            <h3 class="text-lg font-semibold mb-2">Article Content (Markdown)</h3>
+                            <p class="text-sm text-gray-600 mb-4">Use ## for headings, ``` for code blocks, $$ for math equations</p>
+                            <textarea id="markdown" rows="20" placeholder="## Introduction&#10;&#10;Write your paragraph here...&#10;&#10;## Mathematical Foundations&#10;&#10;Here's a code example:&#10;&#10;```python&#10;// Python (PyTorch)&#10;import torch&#10;x = torch.tensor([1, 2, 3])&#10;```&#10;&#10;Here's an equation:&#10;&#10;$$&#10;Contrastive Loss Function:&#10;\mathcal{L} = -\frac{1}{N}\sum_{i=1}^{N}&#10;$$" class="w-full px-4 py-3 border border-gray-300 rounded-lg font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- JSON Tab -->
+                    <div id="content-json" style="display: none;">
+                        <pre id="jsonOutput" class="bg-gray-900 text-green-400 p-6 rounded-lg overflow-auto text-sm" style="max-height: 80vh;"></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Section -->
+            <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <h4 class="font-semibold text-blue-900 mb-2">Markdown Format Guide:</h4>
+                <div class="grid md:grid-cols-2 gap-4 text-sm text-blue-800">
+                    <div>
+                        <p class="font-medium mb-2">Headings:</p>
+                        <pre class="bg-white p-2 rounded border border-blue-200 text-xs">## Introduction</pre>
+                        <p class="text-xs mt-1">Creates h2 heading with auto-generated ID</p>
+                    </div>
+                    <div>
+                        <p class="font-medium mb-2">Paragraphs:</p>
+                        <pre class="bg-white p-2 rounded border border-blue-200 text-xs">Just write text normally...</pre>
+                        <p class="text-xs mt-1">Separate with blank lines</p>
+                    </div>
+                    <div>
+                        <p class="font-medium mb-2">Code Blocks:</p>
+                        <pre class="bg-white p-2 rounded border border-blue-200 text-xs">```python
+// Python (PyTorch)
+import torch
+```</pre>
+                        <p class="text-xs mt-1">First line with // becomes label</p>
+                    </div>
+                    <div>
+                        <p class="font-medium mb-2">Math Equations:</p>
+                        <pre class="bg-white p-2 rounded border border-blue-200 text-xs">$$
+Loss Function:
+\mathcal{L} = ...
+$$</pre>
+                        <p class="text-xs mt-1">First line after $$ becomes label</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentTab = 'edit';
+
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            // Update tab styles
+            document.getElementById('tab-edit').className = tab === 'edit' ? 
+                'tab-active flex items-center gap-2 px-6 py-3 font-medium transition-colors' : 
+                'tab-inactive flex items-center gap-2 px-6 py-3 font-medium transition-colors';
+            document.getElementById('tab-json').className = tab === 'json' ? 
+                'tab-active flex items-center gap-2 px-6 py-3 font-medium transition-colors' : 
+                'tab-inactive flex items-center gap-2 px-6 py-3 font-medium transition-colors';
+            
+            // Show/hide content
+            document.getElementById('content-edit').style.display = tab === 'edit' ? 'block' : 'none';
+            document.getElementById('content-json').style.display = tab === 'json' ? 'block' : 'none';
+            
+            // Update JSON when switching to JSON tab
+            if (tab === 'json') {
+                updateJSON();
+            }
+        }
+
+        function parseMarkdown(md) {
+            const sections = [];
+            const lines = md.split('\n');
+            const tocItems = [];
+            let i = 0;
+
+            while (i < lines.length) {
+                const line = lines[i].trim();
+
+                // Heading
+                if (line.startsWith('##')) {
+                    const match = line.match(/^#+/);
+                    const level = match[0].length;
+                    const content = line.replace(/^#+\s*/, '');
+                    const id = content.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+                    
+                    sections.push({
+                        type: 'heading',
+                        level,
+                        id,
+                        content
+                    });
+
+                    // Add ALL h2 headings to TOC (this is critical for the renderer)
+                    if (level === 2) {
+                        tocItems.push({ id, title: content });
+                    }
+                    i++;
+                }
+                // Code block
+                else if (line.startsWith('```')) {
+                    const lang = line.substring(3).trim() || 'python';
+                    let label = lang;
+                    const codeLines = [];
+                    i++;
+                    
+                    // Check if first line is a label
+                    if (i < lines.length && lines[i].trim().startsWith('//')) {
+                        label = lines[i].trim().substring(2).trim();
+                        i++;
+                    }
+                    
+                    while (i < lines.length && !lines[i].startsWith('```')) {
+                        codeLines.push(lines[i]);
+                        i++;
+                    }
+                    
+                    sections.push({
+                        type: 'code',
+                        language: lang,
+                        label,
+                        content: codeLines.join('\n').trim()
+                    });
+                    i++;
+                }
+                // Math block
+                else if (line.startsWith('$$')) {
+                    let label = '';
+                    const mathLines = [];
+                    i++;
+                    
+                    // Check if first line is a label
+                    if (i < lines.length && lines[i].trim() && !lines[i].trim().startsWith('$$')) {
+                        label = lines[i].trim();
+                        i++;
+                    }
+                    
+                    while (i < lines.length && !lines[i].startsWith('$$')) {
+                        mathLines.push(lines[i]);
+                        i++;
+                    }
+                    
+                    sections.push({
+                        type: 'math',
+                        display: true,
+                        label,
+                        content: mathLines.join('\n').trim()
+                    });
+                    i++;
+                }
+                // Paragraph
+                else if (line.length > 0) {
+                    const paraLines = [];
+                    while (i < lines.length && lines[i].trim().length > 0 && 
+                           !lines[i].trim().startsWith('#') && 
+                           !lines[i].trim().startsWith('```') && 
+                           !lines[i].trim().startsWith('$$')) {
+                        paraLines.push(lines[i].trim());
+                        i++;
+                    }
+                    
+                    if (paraLines.length > 0) {
+                        sections.push({
+                            type: 'paragraph',
+                            content: paraLines.join(' ')
+                        });
+                    }
+                }
+                else {
+                    i++;
+                }
+            }
+
+            return { sections, tocItems };
+        }
+
+        function generateJSON() {
+            const { sections, tocItems } = parseMarkdown(document.getElementById('markdown').value);
+            
+            const tags = document.getElementById('tags').value
+                .split(',')
+                .map(t => t.trim())
+                .filter(Boolean);
+            
+            // Get current date in the format matching your original article
+            const now = new Date();
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                           'July', 'August', 'September', 'October', 'November', 'December'];
+            const formattedDate = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+            
+            // Ensure social URLs have proper protocol
+            const ensureProtocol = (url) => {
+                if (!url) return '';
+                if (url.startsWith('http://') || url.startsWith('https://')) return url;
+                return 'https://' + url.replace(/^\/+/, '');
+            };
+            
+            return {
+                id: document.getElementById('articleId').value,
+                title: document.getElementById('title').value,
+                date: formattedDate,
+                readTime: document.getElementById('readTime').value,
+                views: document.getElementById('views').value,
+                tags: tags,
+                author: {
+                    name: document.getElementById('authorName').value,
+                    initials: document.getElementById('authorInitials').value,
+                    bio: document.getElementById('authorBio').value,
+                    social: {
+                        github: ensureProtocol(document.getElementById('github').value),
+                        linkedin: ensureProtocol(document.getElementById('linkedin').value),
+                        email: document.getElementById('email').value,
+                        twitter: ensureProtocol(document.getElementById('twitter').value)
+                    }
+                },
+                tableOfContents: tocItems,
+                sections: sections,
+                relatedArticles: []
+            };
+        }
+
+        function updateJSON() {
+            const json = generateJSON();
+            document.getElementById('jsonOutput').textContent = JSON.stringify(json, null, 2);
+        }
+
+        function copyJSON() {
+            const json = generateJSON();
+            navigator.clipboard.writeText(JSON.stringify(json, null, 2)).then(() => {
+                document.getElementById('copyText').textContent = 'Copied!';
+                setTimeout(() => {
+                    document.getElementById('copyText').textContent = 'Copy JSON';
+                }, 2000);
+            });
+        }
+
+        function downloadJSON() {
+            const json = generateJSON();
+            const blob = new Blob([JSON.stringify(json, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${json.id || 'article'}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Auto-update JSON when typing (debounced)
+        let updateTimeout;
+        document.getElementById('markdown').addEventListener('input', () => {
+            clearTimeout(updateTimeout);
+            updateTimeout = setTimeout(() => {
+                if (currentTab === 'json') {
+                    updateJSON();
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>

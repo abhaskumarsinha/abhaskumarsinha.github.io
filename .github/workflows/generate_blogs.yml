@@ -1,0 +1,85 @@
+name: Generate blog HTML from JSON
+
+# Run manually or on pushes to main (adjust branches as needed)
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write   # needed to push commits
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    env:
+      BLOGS_DIR: blogs
+      JSON_DIR: blogs/json
+      SCRIPTS_DIR: scripts
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install requirements (if any)
+        run: |
+          if [ -f requirements.txt ]; then
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+          else
+            echo "No requirements.txt found, skipping install."
+          fi
+
+      - name: Remove existing HTML files in blogs/ (only files, not folders)
+        run: |
+          echo "Removing HTML files directly inside $BLOGS_DIR (not recursing into subfolders)..."
+          # show what will be deleted then delete
+          find "$BLOGS_DIR" -maxdepth 1 -type f -name '*.html' -print -delete || true
+
+      - name: Commit deletion (if any)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A "$BLOGS_DIR"
+          if git diff --cached --quiet; then
+            echo "No deletions to commit."
+          else
+            git commit -m "chore: remove old generated blog HTML files"
+            git push
+          fi
+
+      - name: Generate HTML from each JSON in blogs/json
+        run: |
+          set -e
+          echo "Using template: $JSON_DIR/sample_blog.html"
+          for json in $JSON_DIR/*.json; do
+            [ -e "$json" ] || continue
+            base=$(basename "$json" .json)
+            out="$BLOGS_DIR/${base}.html"
+            echo "Generating $out from $json"
+            # call the script (assumes it accepts the same CLI used in your example)
+            python "$SCRIPTS_DIR/add_articles.py" "$json" -o "$out" -t "$JSON_DIR/sample_blog.html"
+          done
+
+      - name: Commit generated HTML files and push
+        run: |
+          git add "$BLOGS_DIR"/*.html || true
+          if git diff --cached --quiet; then
+            echo "No generated HTML changes to commit."
+          else
+            git commit -m "chore: generate blog HTML from JSON"
+            git push
+          fi
+
+      - name: Cleanup runner workspace (delete HTML files locally)
+        run: |
+          echo "Cleaning up generated HTML files from runner workspace (does NOT affect repo contents)."
+          find "$BLOGS_DIR" -maxdepth 1 -type f -name '*.html' -print -delete || true

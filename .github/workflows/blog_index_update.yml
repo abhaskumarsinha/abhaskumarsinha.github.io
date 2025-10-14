@@ -1,0 +1,71 @@
+name: Manual — Update blog index
+
+# Only manual trigger
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # keep credentials so git push works
+          persist-credentials: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install requirements (if present)
+        run: |
+          if [ -f requirements.txt ]; then
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+          else
+            echo "No requirements.txt found — skipping Python deps install."
+          fi
+
+      - name: Run blog_index_update.py to regenerate blogs.html
+        run: |
+          set -e
+          echo "Running: python blog_index_update.py ./blogs/json/ -t blogs.html -o blogs.html"
+          python blog_index_update.py ./blogs/json/ -t blogs.html -o blogs.html
+
+      - name: Commit & push updated blogs.html (if changed)
+        env:
+          TIMESTAMP: ${{ steps.time.outputs.now || '' }}
+        run: |
+          # Configure git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Stage the generated file (if it exists)
+          if [ -f ./blogs.html ]; then
+            git add ./blogs.html
+          else
+            echo "Generated file ./blogs.html not found — nothing to commit."
+            exit 0
+          fi
+
+          # If there are no staged changes, exit
+          if git diff --cached --quiet; then
+            echo "No changes to commit for blogs.html"
+          else
+            COMMIT_MSG="chore: update blogs index (generated) — by $GITHUB_ACTOR on $(date -u +'%Y-%m-%d %H:%M:%SZ') (run $GITHUB_RUN_ID)"
+            git commit -m "$COMMIT_MSG"
+            # Push using the checkout action's credentials (GITHUB_TOKEN)
+            git push
+          fi
+
+      - name: Cleanup runner workspace
+        run: |
+          echo "Removing generated blogs.html from runner workspace"
+          rm -f ./blogs.html || true

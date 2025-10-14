@@ -8,7 +8,7 @@ permissions:
   contents: write
 
 jobs:
-  update-index:
+  update-blog-index:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +16,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          # keep credentials so git push works
           persist-credentials: true
 
       - name: Setup Python
@@ -24,48 +23,45 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install requirements (if present)
+      - name: Install requirements (if any)
         run: |
           if [ -f requirements.txt ]; then
             python -m pip install --upgrade pip
             pip install -r requirements.txt
           else
-            echo "No requirements.txt found — skipping Python deps install."
+            echo "No requirements.txt, skipping install."
           fi
 
-      - name: Run blog_index_update.py to regenerate blogs.html
+      - name: Run blog index update script
         run: |
-          set -e
-          echo "Running: python blog_index_update.py ./blogs/json/ -t blogs.html -o blogs.html"
-          python blog_index_update.py ./blogs/json/ -t blogs.html -o blogs.html
+          set -euo pipefail
+          echo "Running: python ./scripts/blog_index_update.py ./blogs/json/ -t blogs.html -o blogs.html"
+          python ./scripts/blog_index_update.py ./blogs/json/ -t blogs.html -o blogs.html
+          echo "Script finished. Generated ./blogs.html"
 
-      - name: Commit & push updated blogs.html (if changed)
-        env:
-          TIMESTAMP: ${{ steps.time.outputs.now || '' }}
+      - name: Show generated file (for debug)
+        if: always()
         run: |
-          # Configure git
+          echo "----- head of blogs.html -----"
+          head -n 200 blogs.html || true
+          echo "----- end preview -----"
+
+      - name: Commit & push blogs.html (if changed)
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          # Stage the generated file (if it exists)
-          if [ -f ./blogs.html ]; then
-            git add ./blogs.html
-          else
-            echo "Generated file ./blogs.html not found — nothing to commit."
-            exit 0
-          fi
-
-          # If there are no staged changes, exit
+          # Stage the generated file
+          git add blogs.html || true
+          # If there are staged changes, commit & push
           if git diff --cached --quiet; then
-            echo "No changes to commit for blogs.html"
+            echo "No changes to blogs.html; nothing to commit."
           else
-            COMMIT_MSG="chore: update blogs index (generated) — by $GITHUB_ACTOR on $(date -u +'%Y-%m-%d %H:%M:%SZ') (run $GITHUB_RUN_ID)"
-            git commit -m "$COMMIT_MSG"
-            # Push using the checkout action's credentials (GITHUB_TOKEN)
+            git commit -m "chore: update blog index (blogs.html) [skip ci]"
             git push
           fi
 
       - name: Cleanup runner workspace
         run: |
-          echo "Removing generated blogs.html from runner workspace"
-          rm -f ./blogs.html || true
+          echo "Cleaning generated files from runner workspace..."
+          rm -f blogs.html || true
+          echo "Cleanup done."

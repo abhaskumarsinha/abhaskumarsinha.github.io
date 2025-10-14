@@ -406,16 +406,24 @@
   },
   {
     "id": 21,
-    "title": "G3JOjIRXsAEc5V8",
-    "description": "NaN",
-    "category": "None",
+    "title": "Glowing Trees at Core III Garden",
+    "description": "A beautiful view of the Core III garden at IIT Guwahati during twilight, where trees were decorated with glowing lights that illuminated the grassy garden between office buildings. Captured just as darkness was setting in, highlighting the serene and festive ambiance.",
+    "category": "Campus Nightscape",
     "thumbnail": "./images/G3JOjIRXsAEc5V8-thumb.jpg",
     "image": "./images/G3JOjIRXsAEc5V8.jpg",
-    "location": "None",
-    "date": "2000-01-01",
-    "camera": "None",
+    "location": "Core III Garden, IIT Guwahati, Assam, India",
+    "date": "2025-10-13",
+    "camera": "Redmi A4 5G",
     "tags": [
-      "None"
+      "Night",
+      "Twilight",
+      "Lights",
+      "Trees",
+      "Campus",
+      "IIT Guwahati",
+      "Garden",
+      "Glow",
+      "Nature"
     ]
   }
 ]

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-S28SLBF6SL"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-S28SLBF6SL');
+	</script>
+
+	<!-- Google reCAPTCHA Script -->
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Abhas Kumar Sinha</title>
+	
+    <!-- Favicon -->
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+
+    <!-- Fonts & Styles -->
+    <link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="extras.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+	<!-- SEO Meta Tags -->
+	<meta name="description" content="Explore insights, tutorials, and discussions on AI, machine learning, deep learning, reinforcement learning, computer vision, 3D graphics, startups, and open-source projects by Abhas Kumar Sinha.">
+	<meta name="keywords" content="Abhas Kumar Sinha, AI, Artificial Intelligence, Machine Learning, Deep Learning, Reinforcement Learning, Computer Vision, Research, 3D Graphics, Startup, Open Source, Blog">
+	<link rel="canonical" href="https://abhaskumarsinha.github.io/blog">
+	<meta name="robots" content="index, follow">
+	
+	<!-- Open Graph Meta Tags -->
+	<meta property="og:title" content="Abhas Kumar Sinha | AI Blog & Research Notes">
+	<meta property="og:description" content="Articles, tutorials, and reflections on AI, ML, DL, computer vision, 3D engines, and open-source development.">
+	<meta property="og:image" content="https://abhaskumarsinha.github.io/social_media_card.png">
+	<meta property="og:url" content="https://abhaskumarsinha.github.io/blog">
+	<meta property="og:type" content="blog">
+	<meta property="og:site_name" content="Abhas Kumar Sinha">
+	
+	<!-- Twitter Card Meta Tags -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Abhas Kumar Sinha | AI Blog & Research Notes">
+	<meta name="twitter:description" content="Insights and tutorials on AI, machine learning, reinforcement learning, computer vision, 3D graphics, and open-source projects.">
+	<meta name="twitter:image" content="https://abhaskumarsinha.github.io/social_media_card.png">
+
+	<!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Abhas Kumar Sinha",
+      "url": "https://abhaskumarsinha.github.io/",
+      "sameAs": [
+        "https://github.com/abhaskumarsinha",
+        "https://www.linkedin.com/in/abhas-kumar-sinha/"
+      ],
+      "jobTitle": "PhD Researcher",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "IIT Guwahati"
+      }
+    }
+    </script>
+    
+    <style>
+        /* Additional Blog-Specific Styles */
+        .blog-header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .blog-categories {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .category-filter {
+            padding: 0.6rem 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 246, 255, 0.3);
+            border-radius: 25px;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .category-filter:hover,
+        .category-filter.active {
+            background: var(--primary-color);
+            color: var(--background-color);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(0, 246, 255, 0.5);
+        }
+
+        .blog-subscribe-section {
+            background: linear-gradient(135deg, rgba(0, 246, 255, 0.1), rgba(112, 0, 255, 0.1));
+            border-radius: 15px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+            border: 1px solid rgba(0, 246, 255, 0.2);
+        }
+
+        .blog-subscribe-section h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .blog-subscribe-section p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .subscribe-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .subscribe-form input {
+            flex: 1;
+            min-width: 250px;
+            padding: 0.9rem 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 246, 255, 0.3);
+            border-radius: 5px;
+            color: var(--text-color);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .subscribe-form input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(0, 246, 255, 0.2);
+        }
+
+        .subscribe-form button {
+            padding: 0.9rem 2rem;
+            background: var(--primary-color);
+            color: var(--background-color);
+            border: none;
+            border-radius: 5px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .subscribe-form button:hover {
+            background: var(--secondary-color);
+            box-shadow: 0 0 20px rgba(0, 246, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--background-color);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .list-item.featured {
+            border-left: 3px solid var(--secondary-color);
+            position: relative;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            gap: 1rem;
+        }
+
+        .blog-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .blog-header-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .subscribe-form {
+                flex-direction: column;
+            }
+
+            .subscribe-form input {
+                min-width: 100%;
+            }
+
+            .blog-stats {
+                flex-wrap: wrap;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+	
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJWW6PRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	
+    <div class="particles-background"></div>
+    <div class="background-overlay"></div>
+    
+    <header class="nav-header">
+        <nav>
+            <div class="logo">AS</div>
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./projects.html">Projects</a></li>
+                <li><a href="./blogs.html">Blog</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+				<li><a href="./pokemon.html">More Pokémons</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Page Hero Section -->
+        <section class="page-hero">
+            <div class="glitch-container">
+                <h1 class="glitch" data-text="Blog">Blog</h1>
+            </div>
+            <p class="page-subtitle">Exploring AI, research insights, and technological innovations</p>
+        </section>
+
+        <!-- Main Content Section -->
+        <section class="page-content">
+            <!-- Blog Header with Categories -->
+            <div class="blog-header-section">
+                <div>
+                    <h2 style="color: var(--text-color); margin-bottom: 0.5rem;">Latest Articles</h2>
+                    <p style="color: rgba(255, 255, 255, 0.6);">Thoughts on AI, machine learning, and beyond</p>
+                </div>
+                <div class="blog-categories">
+                    <button class="category-filter active" onclick="filterCategory('all')">All</button>
+                    <button class="category-filter" onclick="filterCategory('ai')">AI & ML</button>
+                    <button class="category-filter" onclick="filterCategory('research')">Research</button>
+                    <button class="category-filter" onclick="filterCategory('tutorial')">Tutorials</button>
+                    <button class="category-filter" onclick="filterCategory('insights')">Insights</button>
+                </div>
+            </div>
+
+            <!-- Blog Posts List -->
+            <div class="content-list">
+                <!-- Featured Post -->
+                <article class="list-item featured" data-category="ai">
+                    <span class="featured-badge"><i class="fas fa-star"></i> Featured</span>
+                    <div class="list-item-content">
+                        <h3><a href="#">The Future of Multimodal AI: Bridging Vision and Language</a></h3>
+                        <p class="list-item-excerpt">Exploring the latest advances in multimodal AI systems that seamlessly integrate visual and linguistic understanding. From CLIP to GPT-4V, we're witnessing a paradigm shift in how machines perceive and interact with the world around them...</p>
+                        <div class="list-item-meta">
+                            <span><i class="fas fa-calendar"></i> September 28, 2025</span>
+                            <span><i class="fas fa-clock"></i> 12 min read</span>
+                            <span><i class="fas fa-tag"></i> AI & ML, Computer Vision</span>
+                        </div>
+                        <div class="blog-stats">
+                            <span class="stat-item"><i class="fas fa-eye"></i> 2.4k views</span>
+                            <span class="stat-item"><i class="fas fa-share"></i> 145 shares</span>
+                        </div>
+                        <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Regular Posts -->
+                <article class="list-item" data-category="tutorial">
+                    <div class="list-item-content">
+                        <h3><a href="#">Building Robust Neural Networks: A Practical Guide</a></h3>
+                        <p class="list-item-excerpt">A comprehensive tutorial on designing and training neural networks that generalize well. Learn about regularization techniques, data augmentation strategies, and best practices for avoiding overfitting in deep learning models...</p>
+                        <div class="list-item-meta">
+                            <span><i class="fas fa-calendar"></i> September 22, 2025</span>
+                            <span><i class="fas fa-clock"></i> 15 min read</span>
+                            <span><i class="fas fa-tag"></i> Tutorial, Deep Learning</span>
+                        </div>
+                        <div class="blog-stats">
+                            <span class="stat-item"><i class="fas fa-eye"></i> 1.8k views</span>
+                            <span class="stat-item"><i class="fas fa-share"></i> 89 shares</span>
+                        </div>
+                        <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="list-item" data-category="research">
+                    <div class="list-item-content">
+                        <h3><a href="#">Understanding Attention Mechanisms in Transformers</a></h3>
+                        <p class="list-item-excerpt">Deep dive into the mathematical foundations and practical implementations of attention mechanisms that power modern language models. We'll explore self-attention, cross-attention, and their variants with code examples...</p>
+                        <div class="list-item-meta">
+                            <span><i class="fas fa-calendar"></i> September 15, 2025</span>
+                            <span><i class="fas fa-clock"></i> 18 min read</span>
+                            <span><i class="fas fa-tag"></i> Research, NLP</span>
+                        </div>
+                        <div class="blog-stats">
+                            <span class="stat-item"><i class="fas fa-eye"></i> 3.2k views</span>
+                            <span class="stat-item"><i class="fas fa-share"></i> 201 shares</span>
+                        </div>
+                        <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="list-item" data-category="insights">
+                    <div class="list-item-content">
+                        <h3><a href="#">The Ethics of AI: Navigating Bias and Fairness</a></h3>
+                        <p class="list-item-excerpt">An exploration of ethical considerations in AI development, focusing on algorithmic bias, fairness metrics, and responsible AI practices. How can we build systems that serve all communities equitably?...</p>
+                        <div class="list-item-meta">
+                            <span><i class="fas fa-calendar"></i> September 8, 2025</span>
+                            <span><i class="fas fa-clock"></i> 10 min read</span>
+                            <span><i class="fas fa-tag"></i> Ethics, AI Policy</span>
+                        </div>
+                        <div class="blog-stats">
+                            <span class="stat-item"><i class="fas fa-eye"></i> 2.1k views</span>
+                            <span class="stat-item"><i class="fas fa-share"></i> 156 shares</span>
+                        </div>
+                        <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="list-item" data-category="ai">
+                    <div class="list-item-content">
+                        <h3><a href="#">Optimizing Large Language Models for Edge Devices</a></h3>
+                        <p class="list-item-excerpt">Techniques for deploying powerful language models on resource-constrained devices. From quantization to knowledge distillation, learn how to make AI accessible everywhere without compromising performance...</p>
+                        <div class="list-item-meta">
+                            <span><i class="fas fa-calendar"></i> September 1, 2025</span>
+                            <span><i class="fas fa-clock"></i> 14 min read</span>
+                            <span><i class="fas fa-tag"></i> AI & ML, Optimization</span>
+                        </div>
+                        <div class="blog-stats">
+                            <span class="stat-item"><i class="fas fa-eye"></i> 1.5k views</span>
+                            <span class="stat-item"><i class="fas fa-share"></i> 72 shares</span>
+                        </div>
+                        <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="list-item" data-category="research">
+                    <div class="list-item-content">
+                        <h3><a href="#">Graph Neural Networks: Theory and Applications</a></h3>
+                        <p class="list-item-excerpt">Exploring the emerging field of graph neural networks and their applications in molecular biology, social network analysis, and recommendation systems. Understanding the mathematical foundations and practical use cases...</p>
+                        <div class="list-item-meta">
+                            <span><i class="fas fa-calendar"></i> August 25, 2025</span>
+                            <span><i class="fas fa-clock"></i> 16 min read</span>
+                            <span><i class="fas fa-tag"></i> Research, Graph ML</span>
+                        </div>
+                        <div class="blog-stats">
+                            <span class="stat-item"><i class="fas fa-eye"></i> 1.9k views</span>
+                            <span class="stat-item"><i class="fas fa-share"></i> 98 shares</span>
+                        </div>
+                        <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="list-item" data-category="tutorial">
+                    <div class="list-item-content">
+                        <h3><a href="#">Getting Started with PyTorch: A Beginner's Guide</a></h3>
+                        <p class="list-item-excerpt">A comprehensive introduction to PyTorch for deep learning beginners. From tensor operations to building your first neural network, this guide covers everything you need to start your ML journey...</p>
+                        <div class="list-item-meta">
+                            <span><i class="fas fa-calendar"></i> August 18, 2025</span>
+                            <span><i class="fas fa-clock"></i> 20 min read</span>
+                            <span><i class="fas fa-tag"></i> Tutorial, PyTorch</span>
+                        </div>
+                        <div class="blog-stats">
+                            <span class="stat-item"><i class="fas fa-eye"></i> 4.1k views</span>
+                            <span class="stat-item"><i class="fas fa-share"></i> 287 shares</span>
+                        </div>
+                        <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="list-item" data-category="insights">
+                    <div class="list-item-content">
+                        <h3><a href="#">My Journey Through PhD Research: Lessons Learned</a></h3>
+                        <p class="list-item-excerpt">Personal reflections on navigating the challenges and triumphs of doctoral research. Tips for staying motivated, managing time effectively, and maintaining work-life balance during your PhD journey...</p>
+                        <div class="list-item-meta">
+                            <span><i class="fas fa-calendar"></i> August 10, 2025</span>
+                            <span><i class="fas fa-clock"></i> 8 min read</span>
+                            <span><i class="fas fa-tag"></i> Academic Life, Personal</span>
+                        </div>
+                        <div class="blog-stats">
+                            <span class="stat-item"><i class="fas fa-eye"></i> 2.7k views</span>
+                            <span class="stat-item"><i class="fas fa-share"></i> 178 shares</span>
+                        </div>
+                        <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+
+			<!-- Subscribe Section -->
+			<!-- Subscribe Section -->
+			<div class="blog-subscribe-section">
+			  <h3>Stay Updated</h3>
+			  <p>Subscribe to receive the latest articles on AI, research, and technology directly in your inbox</p>
+				
+				<form id="subscribe-form" class="subscribe-form" action="https://script.google.com/macros/s/AKfycbxTseQOaU_4cP2EzOQrUO5dWgdT0Kkb95-MDcajNEX-IK0e9q1gbm9MUK5lUsa48uiZ8w/exec" method="POST">
+				  <input type="email" name="email" placeholder="Enter your email address" required>
+				
+				  <!-- hidden token -->
+				  <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+				
+				  <!-- single class attribute only -->
+				  <button
+				    class="g-recaptcha subscribe-button"
+				    data-sitekey="6LdHY-QrAAAAALX8rTZUSFyryKT9H35LeDc-BxNq"
+				    data-callback="onRecaptchaSuccess"
+				    data-action="subscribe"
+				    type="submit">
+				    <i class="fas fa-paper-plane"></i> Subscribe
+				  </button>
+				</form>
+				
+				<script>
+				  function onRecaptchaSuccess(token) {
+				    document.getElementById('g-recaptcha-response').value = token;
+				    document.getElementById('subscribe-form').submit();
+				  }
+				</script>
+			
+			<!-- your original script include (ok for invisible v2 if you used that) -->
+			<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+			
+			  <p style="font-size: 0.85rem; margin-top: 1rem; color: rgba(255, 255, 255, 0.5);">
+			    <i class="fas fa-lock"></i> Your email is safe with us. No spam, ever.
+			  </p>
+			</div>
+			
+			<script>
+			  function onRecaptchaSuccess(token) {
+			    document.getElementById('g-recaptcha-response').value = token;
+			    document.getElementById('subscribe-form').submit();
+			  }
+			</script>
+
+			<!-- load reCAPTCHA AFTER the callback is defined -->
+			<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About</h4>
+                <p>PhD Researcher at IIT Guwahati, specializing in AI and Computer Vision. Passionate about pushing the boundaries of technology and innovation.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li><a href="./projects.html">Projects</a></li>
+                    <li><a href="./pokemon.html">More Pokémons</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>Feel free to reach out for collaborations or just a friendly chat.</p>
+                <div class="footer-social">
+                    <a href="https://github.com/abhaskumarsinha" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/abhas-kumar-sinha/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:abhaskumarsinha@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Abhas Kumar Sinha. All rights reserved. Built with 💻 and ❤️</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="scripts.js"></script>
+    
+    <script>
+        // Category filtering functionality
+        function filterCategory(category) {
+            const articles = document.querySelectorAll('.list-item');
+            const buttons = document.querySelectorAll('.category-filter');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter articles
+            articles.forEach(article => {
+                if (category === 'all') {
+                    article.style.display = 'block';
+                    setTimeout(() => article.style.opacity = '1', 10);
+                } else {
+                    const articleCategory = article.getAttribute('data-category');
+                    if (articleCategory === category) {
+                        article.style.display = 'block';
+                        setTimeout(() => article.style.opacity = '1', 10);
+                    } else {
+                        article.style.opacity = '0';
+                        setTimeout(() => article.style.display = 'none', 300);
+                    }
+                }
+            });
+        }
+        
+        // Add smooth transitions
+        document.querySelectorAll('.list-item').forEach(item => {
+            item.style.transition = 'opacity 0.3s ease';
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+

@@ -242,9 +242,33 @@ class BlogIndexGenerator:
         
         html = html[:category_section_start] + new_category_section + html[category_section_end:]
         
-        # Replace blog posts list
+        # Replace blog posts list - FIXED: Find the closing tag of content-list div specifically
         list_start = html.find('<div class="content-list">')
-        list_end = html.find('</div>', html.find('<!-- Subscribe Section -->'))
+        
+        # Find the closing </div> tag that matches the content-list opening
+        # We need to count nested divs to find the correct closing tag
+        pos = list_start + len('<div class="content-list">')
+        depth = 1
+        while depth > 0 and pos < len(html):
+            if html[pos:pos+5] == '<div ':
+                depth += 1
+            elif html[pos:pos+6] == '</div>':
+                depth -= 1
+                if depth == 0:
+                    list_end = pos + 6
+                    break
+            pos += 1
+        
+        if depth != 0:
+            # Fallback: use the comment marker approach more carefully
+            subscribe_comment_pos = html.find('<!-- Subscribe Section -->')
+            if subscribe_comment_pos == -1:
+                raise ValueError("Could not find Subscribe Section comment marker")
+            # Find the last </div> before the subscribe section
+            list_end = html.rfind('</div>', list_start, subscribe_comment_pos)
+            if list_end == -1:
+                raise ValueError("Could not find closing tag for content-list")
+            list_end += 6  # Include the </div> tag
         
         new_list_section = f'''<div class="content-list">
 {blogs_list_html}

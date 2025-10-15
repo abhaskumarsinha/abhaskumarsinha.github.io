@@ -35,8 +35,8 @@ jobs:
       - name: Run blog index update script
         run: |
           set -euo pipefail
-          echo "Running: python ./scripts/blog_index_update.py ./blogs/json/ -t blogs.html -o blogs.html"
-          python ./scripts/blog_index_update.py ./blogs/json/ -t blogs.html -o blogs.html
+          echo "Running: python ./scripts/blog_index_update.py ./blogs/json/ -t ./blog-template/blogs.html -o blogs.html"
+          python ./scripts/blog_index_update.py ./blogs/json/ -t ./blog-template/blogs.html -o blogs.html
           echo "Script finished. Generated ./blogs.html"
 
       - name: Show generated file (for debug)

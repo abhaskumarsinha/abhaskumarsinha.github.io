@@ -1,6 +1,6 @@
 /**
  * PageCounter - Secure view and share counter system
- * Frontend JavaScript library
+ * Frontend JavaScript library (GET-only version for better CORS compatibility)
  */
 
 class PageCounter {
@@ -64,7 +64,11 @@ class PageCounter {
   async getCounts() {
     try {
       const url = `${this.apiUrl}?pageId=${encodeURIComponent(this.pageId)}&key=${encodeURIComponent(this.apiKey)}`;
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache'
+      });
       const data = await response.json();
       
       if (data.success) {
@@ -89,17 +93,11 @@ class PageCounter {
     if (this.viewCounted) return;
     
     try {
-      const response = await fetch(this.apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          pageId: this.pageId,
-          action: 'view',
-          key: this.apiKey,
-          userHash: this.userHash
-        })
+      const url = `${this.apiUrl}?pageId=${encodeURIComponent(this.pageId)}&key=${encodeURIComponent(this.apiKey)}&action=view&userHash=${encodeURIComponent(this.userHash)}`;
+      const response = await fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache'
       });
       
       const data = await response.json();
@@ -125,17 +123,11 @@ class PageCounter {
    */
   async countShare() {
     try {
-      const response = await fetch(this.apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          pageId: this.pageId,
-          action: 'share',
-          key: this.apiKey,
-          userHash: this.userHash
-        })
+      const url = `${this.apiUrl}?pageId=${encodeURIComponent(this.pageId)}&key=${encodeURIComponent(this.apiKey)}&action=share&userHash=${encodeURIComponent(this.userHash)}`;
+      const response = await fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache'
       });
       
       const data = await response.json();

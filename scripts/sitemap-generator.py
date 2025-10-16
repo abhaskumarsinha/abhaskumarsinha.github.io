@@ -215,7 +215,7 @@ class SitemapGenerator:
 
 if __name__ == "__main__":
     # Configuration
-    BASE_URL = "https://abhaskumarsinha.github.io/"  # Change this to your website URL
+    BASE_URL = "https://abhaskumarsinha.github.io"  # Change this to your website URL
     
     # Create generator and run
     generator = SitemapGenerator(BASE_URL)

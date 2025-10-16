@@ -161,29 +161,39 @@ class SitemapGenerator:
         """Return a pretty-printed XML string."""
         rough_string = tostring(elem, encoding='utf-8')
         reparsed = minidom.parseString(rough_string)
-        return reparsed.toprettyxml(indent="  ", encoding='utf-8').decode('utf-8')
+        pretty = reparsed.toprettyxml(indent="  ", encoding='utf-8').decode('utf-8')
+        # Remove extra blank lines
+        lines = [line for line in pretty.split('\n') if line.strip()]
+        return '\n'.join(lines)
     
     def save_sitemaps(self):
         """Generate and save all sitemap files."""
         # Generate main sitemap
         sitemap_xml = self.generate_sitemap()
         sitemap_path = os.path.join(self.output_dir, 'sitemap.xml')
-        with open(sitemap_path, 'w', encoding='utf-8') as f:
-            f.write(sitemap_xml)
+        with open(sitemap_path, 'w', encoding='utf-8', newline='\n') as f:
+            f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+            # Skip the XML declaration from prettify_xml
+            content = '\n'.join(sitemap_xml.split('\n')[1:])
+            f.write(content)
         print(f"✓ Generated {sitemap_path}")
         
         # Generate image sitemap
         image_sitemap_xml = self.generate_image_sitemap()
         image_sitemap_path = os.path.join(self.output_dir, 'sitemap-images.xml')
-        with open(image_sitemap_path, 'w', encoding='utf-8') as f:
-            f.write(image_sitemap_xml)
+        with open(image_sitemap_path, 'w', encoding='utf-8', newline='\n') as f:
+            f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+            content = '\n'.join(image_sitemap_xml.split('\n')[1:])
+            f.write(content)
         print(f"✓ Generated {image_sitemap_path}")
         
         # Generate sitemap index
         sitemap_index_xml = self.generate_sitemap_index()
         sitemap_index_path = os.path.join(self.output_dir, 'sitemap-index.xml')
-        with open(sitemap_index_path, 'w', encoding='utf-8') as f:
-            f.write(sitemap_index_xml)
+        with open(sitemap_index_path, 'w', encoding='utf-8', newline='\n') as f:
+            f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+            content = '\n'.join(sitemap_index_xml.split('\n')[1:])
+            f.write(content)
         print(f"✓ Generated {sitemap_index_path}")
     
     def run(self):
@@ -215,7 +225,7 @@ class SitemapGenerator:
 
 if __name__ == "__main__":
     # Configuration
-    BASE_URL = "https://abhaskumarsinha.github.io"  # Change this to your website URL
+    BASE_URL = "https://yourwebsite.com"  # Change this to your website URL
     
     # Create generator and run
     generator = SitemapGenerator(BASE_URL)

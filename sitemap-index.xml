@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>https://abhaskumarsinha.github.io/sitemap.xml</loc>
+    <loc>https://yourwebsite.com/sitemap.xml</loc>
     <lastmod>2025-10-16</lastmod>
   </sitemap>
   <sitemap>
-    <loc>https://abhaskumarsinha.github.io/sitemap-images.xml</loc>
+    <loc>https://yourwebsite.com/sitemap-images.xml</loc>
     <lastmod>2025-10-16</lastmod>
   </sitemap>
 </sitemapindex>

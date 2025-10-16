@@ -85,7 +85,7 @@ class SitemapGenerator:
             url = SubElement(urlset, 'url')
             
             loc = SubElement(url, 'loc')
-            loc.text = page['loc']
+            loc.text = self._escape_xml(page['loc'])
             
             lastmod = SubElement(url, 'lastmod')
             lastmod.text = page['lastmod']
@@ -104,9 +104,12 @@ class SitemapGenerator:
         urlset.set('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9')
         urlset.set('xmlns:image', 'http://www.google.com/schemas/sitemap-image/1.1')
         
-        # Group images by gallery page
-        gallery_url = urljoin(self.base_url, 'gallery.html')
-        if os.path.exists('gallery.html'):
+        # Check if gallery.html exists
+        gallery_exists = os.path.exists('gallery.html')
+        
+        if gallery_exists and self.images:
+            # Group images by gallery page
+            gallery_url = urljoin(self.base_url, 'gallery.html')
             url = SubElement(urlset, 'url')
             loc = SubElement(url, 'loc')
             loc.text = gallery_url
@@ -116,23 +119,28 @@ class SitemapGenerator:
                 image = SubElement(url, 'image:image')
                 
                 image_loc = SubElement(image, 'image:loc')
-                image_loc.text = img['loc']
+                image_loc.text = self._escape_xml(img['loc'])
                 
-                if img['title']:
+                if img.get('title'):
                     image_title = SubElement(image, 'image:title')
-                    image_title.text = img['title']
+                    image_title.text = self._escape_xml(img['title'])
                 
-                if img['caption']:
+                if img.get('caption'):
                     image_caption = SubElement(image, 'image:caption')
-                    image_caption.text = img['caption']
+                    image_caption.text = self._escape_xml(img['caption'])
                 
-                if img['geo_location']:
+                if img.get('geo_location'):
                     image_geo = SubElement(image, 'image:geo_location')
-                    image_geo.text = img['geo_location']
+                    image_geo.text = self._escape_xml(img['geo_location'])
                 
                 if img.get('license'):
                     image_license = SubElement(image, 'image:license')
-                    image_license.text = img['license']
+                    image_license.text = self._escape_xml(img['license'])
+        else:
+            # Create empty but valid sitemap if no images or gallery
+            url = SubElement(urlset, 'url')
+            loc = SubElement(url, 'loc')
+            loc.text = self.base_url
         
         return self._prettify_xml(urlset)
     
@@ -141,21 +149,35 @@ class SitemapGenerator:
         sitemapindex = Element('sitemapindex')
         sitemapindex.set('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9')
         
+        current_date = datetime.now().strftime('%Y-%m-%d')
+        
         # Add main sitemap
-        sitemap = SubElement(sitemapindex, 'sitemap')
-        loc = SubElement(sitemap, 'loc')
-        loc.text = urljoin(self.base_url, 'sitemap.xml')
-        lastmod = SubElement(sitemap, 'lastmod')
-        lastmod.text = datetime.now().strftime('%Y-%m-%d')
+        sitemap1 = SubElement(sitemapindex, 'sitemap')
+        loc1 = SubElement(sitemap1, 'loc')
+        loc1.text = self._escape_xml(urljoin(self.base_url, 'sitemap.xml'))
+        lastmod1 = SubElement(sitemap1, 'lastmod')
+        lastmod1.text = current_date
         
         # Add image sitemap
-        sitemap = SubElement(sitemapindex, 'sitemap')
-        loc = SubElement(sitemap, 'loc')
-        loc.text = urljoin(self.base_url, 'sitemap-images.xml')
-        lastmod = SubElement(sitemap, 'lastmod')
-        lastmod.text = datetime.now().strftime('%Y-%m-%d')
+        sitemap2 = SubElement(sitemapindex, 'sitemap')
+        loc2 = SubElement(sitemap2, 'loc')
+        loc2.text = self._escape_xml(urljoin(self.base_url, 'sitemap-images.xml'))
+        lastmod2 = SubElement(sitemap2, 'lastmod')
+        lastmod2.text = current_date
         
         return self._prettify_xml(sitemapindex)
+    
+    def _escape_xml(self, text):
+        """Escape special XML characters."""
+        if not text:
+            return text
+        text = str(text)
+        text = text.replace('&', '&amp;')
+        text = text.replace('<', '&lt;')
+        text = text.replace('>', '&gt;')
+        text = text.replace('"', '&quot;')
+        text = text.replace("'", '&apos;')
+        return text
     
     def _prettify_xml(self, elem):
         """Return a pretty-printed XML string."""
@@ -225,7 +247,7 @@ class SitemapGenerator:
 
 if __name__ == "__main__":
     # Configuration
-    BASE_URL = "https://yourwebsite.com"  # Change this to your website URL
+    BASE_URL = "https://abhaskumarsinha.github.com"  # Change this to your website URL
     
     # Create generator and run
     generator = SitemapGenerator(BASE_URL)

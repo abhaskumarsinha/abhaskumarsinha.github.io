@@ -1,0 +1,55 @@
+name: Generate & Update Sitemaps
+
+on:
+  workflow_dispatch:  # manual trigger only
+
+permissions:
+  contents: write  # required for pushing changes back
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository (main branch)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0  # ensures full history for clean commits
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies (if any)
+        run: |
+          python -m pip install --upgrade pip
+          # Uncomment if sitemap-generator.py needs external deps
+          # pip install -r requirements.txt
+
+      - name: Run sitemap generator
+        run: |
+          echo "Running sitemap generator..."
+          python ./scripts/sitemap-generator.py
+
+      - name: Commit and push updated sitemaps
+        run: |
+          echo "Committing generated sitemap files..."
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Add only sitemap files
+          git add sitemap*.xml
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update sitemaps [skip ci]"
+            git push origin main
+          fi
+
+      - name: Clean workspace
+        run: |
+          echo "Cleaning up workspace..."
+          rm -rf ./*

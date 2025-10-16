@@ -653,7 +653,7 @@
                     <div class="article-meta">
                         <span><i class="fas fa-calendar"></i> September 28, 2025</span>
                         <span><i class="fas fa-clock"></i> 12 min read</span>
-                        <span><i class="fas fa-eye"></i> 2,456 views</span>
+                        <span><i class="fas fa-eye"></i> <span data-counter-type="views">2,456</span> views</span>
                     </div>
 
                     <div class="article-tags">
@@ -812,23 +812,23 @@ similarity = <span class="function">cosine_similarity</span>(vision_embedding, t
                     <div class="share-header">
                         <i class="fas fa-share-alt"></i> Share this article
                     </div>
-                    <div class="share-buttons">
-                        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter(); return false;">
-                            <i class="fab fa-twitter"></i> Twitter
-                        </a>
-                        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn(); return false;">
-                            <i class="fab fa-linkedin"></i> LinkedIn
-                        </a>
-                        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook(); return false;">
-                            <i class="fab fa-facebook"></i> Facebook
-                        </a>
-                        <a href="#" class="share-btn share-email" onclick="shareViaEmail(); return false;">
-                            <i class="fas fa-envelope"></i> Email
-                        </a>
-                        <button class="share-btn share-copy" onclick="copyLink()">
-                            <i class="fas fa-link"></i> Copy Link
-                        </button>
-                    </div>
+					<div class="share-buttons">
+					    <a href="#" class="share-btn share-twitter" data-share-button onclick="shareOnTwitter(); return false;">
+					        <i class="fab fa-twitter"></i> Twitter
+					    </a>
+					    <a href="#" class="share-btn share-linkedin" data-share-button onclick="shareOnLinkedIn(); return false;">
+					        <i class="fab fa-linkedin"></i> LinkedIn
+					    </a>
+					    <a href="#" class="share-btn share-facebook" data-share-button onclick="shareOnFacebook(); return false;">
+					        <i class="fab fa-facebook"></i> Facebook
+					    </a>
+					    <a href="#" class="share-btn share-email" data-share-button onclick="shareViaEmail(); return false;">
+					        <i class="fas fa-envelope"></i> Email
+					    </a>
+					    <button class="share-btn share-copy" data-share-button onclick="copyLink()">
+					        <i class="fas fa-link"></i> Copy Link
+					    </button>
+					</div>
                 </div>
 
                 <!-- Author Section -->
@@ -923,6 +923,18 @@ similarity = <span class="function">cosine_similarity</span>(vision_embedding, t
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="scripts.js"></script>
+
+	<!-- Include the script -->
+    <script src="page-counter.js"></script>
+    
+    <!-- Initialize -->
+    <script>
+        const counter = new PageCounter({
+            apiUrl: 'https://script.google.com/macros/s/AKfycbwneHPUCgbE7hnUAAHSj3CMolJUFpf0wNgjV7G6Vj8BX261RB1Tf3QVvX6fVz9eQCVJ/exec',
+            apiKey: 'sfJH83nsYSFNS82hfYof8zqpm70138u7B8l0PiNNZQ48'
+        });
+        counter.init();
+    </script>
     
     <script>
         // Get current page URL and title
@@ -1142,4 +1154,5 @@ similarity = <span class="function">cosine_similarity</span>(vision_embedding, t
 			}, 250);
 		});
 	</script>
+
 

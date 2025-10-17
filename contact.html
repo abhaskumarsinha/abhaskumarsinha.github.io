@@ -152,41 +152,112 @@
                     </div>
                 </div>
 
-                <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
-                    <div style="text-align: center; margin-bottom: 1.5rem;">
-                        <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Send a Message</h3>
-                        <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">Fill out the form below and I'll get back to you soon</p>
-                    </div>
+				<!-- Add this inside your page <head> or top of body -->
+				<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+				
+				<!-- Hidden iframe for form submission (prevents page navigation) -->
+				<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+				
+				<!-- Your contact form (replace action with your Apps Script URL) -->
+				<form id="contactForm" class="contact-form" action="https://script.google.com/macros/s/AKfycbymyXPBGfWKVgjAnbEOHT-H8GyzNQup76te-3242r0Q22MWtV_BPat7myciJAAB-6dN/exec" method="POST" target="hidden_iframe" onsubmit="return onSubmitContact(event)">
+				  <div style="text-align: center; margin-bottom: 1.5rem;">
+				    <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Send a Message</h3>
+				    <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">Fill out the form below and I'll get back to you soon</p>
+				  </div>
+				
+				  <div class="form-group">
+				    <label for="name">Full Name *</label>
+				    <input type="text" id="name" name="name" placeholder="John Doe" required>
+				  </div>
+				
+				  <div class="form-group">
+				    <label for="email">Email Address *</label>
+				    <input type="email" id="email" name="email" placeholder="john@example.com" required>
+				  </div>
+				
+				  <div class="form-group">
+				    <label for="subject">Subject *</label>
+				    <input type="text" id="subject" name="subject" placeholder="Research Collaboration Opportunity" required>
+				  </div>
+				
+				  <div class="form-group">
+				    <label for="message">Message *</label>
+				    <textarea id="message" name="message" rows="6" placeholder="Tell me about your inquiry..." required></textarea>
+				  </div>
+				
+				  <!-- hidden input for reCAPTCHA token (reCAPTCHA will populate this before submit) -->
+				  <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+				
+				  <!-- invisible reCAPTCHA widget -->
+				  <div class="g-recaptcha"
+				       data-sitekey="6Lfy6e0rAAAAAL9QvJ-LObXpf1njThHC4h-vSS3A"
+				       data-size="invisible"
+				       data-callback="onCaptchaSuccess"></div>
+				
+				  <button type="submit" class="cta-button">
+				    <i class="fas fa-paper-plane"></i> Send Message
+				  </button>
+				
+				  <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: rgba(255, 255, 255, 0.5);">
+				    <i class="fas fa-lock"></i> Your information is secure and will never be shared with third parties.
+				  </p>
+				</form>
+				
+				<!-- small toast area -->
+				<div id="contactToast" style="position: fixed; right: 1rem; bottom: 1rem; display:none; background:#222; color:#fff; padding:0.8rem 1rem; border-radius:6px;"></div>
+				
+				<script>
+				  // Replace this if you need a different fallback
+				  function showToast(msg, ok=true) {
+				    const t = document.getElementById('contactToast');
+				    t.style.background = ok ? '#122' : '#611';
+				    t.innerText = msg;
+				    t.style.display = 'block';
+				    setTimeout(() => t.style.display = 'none', 5000);
+				  }
+				
+				  // Called when the invisible reCAPTCHA solves successfully (receives token)
+				  function onCaptchaSuccess(token) {
+				    // put token into hidden input and submit the form (if not already submitting)
+				    document.getElementById('g-recaptcha-response').value = token;
+				    // the form was waiting on captcha, now actually submit (it was blocked by onSubmitContact)
+				    document.getElementById('contactForm').submit();
+				  }
+				
+				  // Intercept submit: start reCAPTCHA flow instead of immediately posting
+				  function onSubmitContact(e) {
+				    // prevent normal submit; trigger invisible reCAPTCHA instead
+				    e.preventDefault();
+				    // call grecaptcha to run (invisible widget will call onCaptchaSuccess with token)
+				    if (typeof grecaptcha === 'undefined') {
+				      showToast('reCAPTCHA not loaded. Try again.', false);
+				      return false;
+				    }
+				    grecaptcha.execute();
+				    return false; // prevent immediate submit
+				  }
+				
+				  // Listen for message from iframe (Apps Script)
+				  window.addEventListener('message', function(event) {
+				    // OPTIONAL: check event.origin if you want extra security (compare with your script origin)
+				    let data = event.data || {};
+				    try {
+				      // if server sends a JSON-like object: {status:'ok'|'error', message:'...'}
+				      if (data.status === 'ok') {
+				        showToast(data.message || 'Message sent — thank you!', true);
+				        document.getElementById('contactForm').reset();
+				      } else {
+				        showToast(data.message || 'Submission failed. Please try again.', false);
+				      }
+				    } catch (err) {
+				      console.error('Message handling error', err);
+				    }
+				  }, false);
+				
+				  // (Optional) timeout fallback: if iframe doesn't respond within X seconds, notify user.
+				  // You can improve UX by handling network errors similarly.
+				</script>
 
-                    <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" name="name" placeholder="John Doe" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="subject">Subject *</label>
-                        <input type="text" id="subject" name="subject" placeholder="Research Collaboration Opportunity" required>
-                    </div>
-
-                    
-                    <div class="form-group">
-                        <label for="message">Message *</label>
-                        <textarea id="message" name="message" rows="6" placeholder="Tell me about your inquiry..." required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="cta-button">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-
-                    <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: rgba(255, 255, 255, 0.5);">
-                        <i class="fas fa-lock"></i> Your information is secure and will never be shared with third parties.
-                    </p>
-                </form>
             </div>
 
 			<!-- Additional Info Section -->
@@ -269,6 +340,7 @@
 </body>
 
 </html>
+
 
 
 

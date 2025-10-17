@@ -159,7 +159,29 @@
 				<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 				
 				<!-- Your contact form (replace action with your Apps Script URL) -->
-				<form id="contactForm" class="contact-form" action="https://script.google.com/macros/s/AKfycbymyXPBGfWKVgjAnbEOHT-H8GyzNQup76te-3242r0Q22MWtV_BPat7myciJAAB-6dN/exec" method="POST" target="hidden_iframe" onsubmit="return onSubmitContact(event)">
+				<!-- 1) Include this in your <head> or before the form -->
+				<script>
+				  // Put your site key here
+				  const RECAPTCHA_SITE_KEY = '6Lfy6e0rAAAAAL9QvJ-LObXpf1njThHC4h-vSS3A';
+				  // Put your Apps Script webapp URL here (use deployed URL)
+				  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymyXPBGfWKVgjAnbEOHT-H8GyzNQup76te-3242r0Q22MWtV_BPat7myciJAAB-6dN/exec';
+				  // Toggle this to quickly bypass captcha for debugging (do NOT leave this on in production)
+				  const TEST_BYPASS = false;
+				</script>
+				
+				<!-- load explicit render API (calls onRecaptchaLoaded when ready) -->
+				<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoaded&render=explicit" async defer></script>
+				
+				<!-- hidden iframe to receive the response -->
+				<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+				
+				<!-- 2) The form -->
+				<form id="contactForm" class="contact-form"
+				      action=""
+				      method="POST"
+				      target="hidden_iframe"
+				      onsubmit="return onSubmitContact(event)">
+				  <!-- form UI (same fields) -->
 				  <div style="text-align: center; margin-bottom: 1.5rem;">
 				    <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Send a Message</h3>
 				    <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">Fill out the form below and I'll get back to you soon</p>
@@ -185,14 +207,11 @@
 				    <textarea id="message" name="message" rows="6" placeholder="Tell me about your inquiry..." required></textarea>
 				  </div>
 				
-				  <!-- hidden input for reCAPTCHA token (reCAPTCHA will populate this before submit) -->
+				  <!-- hidden input for reCAPTCHA token -->
 				  <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
 				
-				  <!-- invisible reCAPTCHA widget -->
-				  <div class="g-recaptcha"
-				       data-sitekey="6Lfy6e0rAAAAAL9QvJ-LObXpf1njThHC4h-vSS3A"
-				       data-size="invisible"
-				       data-callback="onCaptchaSuccess"></div>
+				  <!-- place where we render the explicit widget (invisible) -->
+				  <div id="recaptcha-container" style="display:inline-block"></div>
 				
 				  <button type="submit" class="cta-button">
 				    <i class="fas fa-paper-plane"></i> Send Message
@@ -203,62 +222,106 @@
 				  </p>
 				</form>
 				
-				<!-- small toast area -->
+				<!-- tiny toast / debug output -->
 				<div id="contactToast" style="position: fixed; right: 1rem; bottom: 1rem; display:none; background:#222; color:#fff; padding:0.8rem 1rem; border-radius:6px;"></div>
 				
 				<script>
-				  // Replace this if you need a different fallback
+				  // debug helper
 				  function showToast(msg, ok=true) {
 				    const t = document.getElementById('contactToast');
 				    t.style.background = ok ? '#122' : '#611';
 				    t.innerText = msg;
 				    t.style.display = 'block';
-				    setTimeout(() => t.style.display = 'none', 5000);
+				    setTimeout(()=> t.style.display = 'none', 4000);
 				  }
 				
-				  // Called when the invisible reCAPTCHA solves successfully (receives token)
+				  // set the form action to the Apps Script URL (or debug bypass)
+				  document.getElementById('contactForm').action = TEST_BYPASS ? (APPS_SCRIPT_URL + '?debug_no_captcha=1') : APPS_SCRIPT_URL;
+				
+				  // grecaptcha widget id (set by onRecaptchaLoaded)
+				  let recaptchaWidgetId = null;
+				
+				  // called when grecaptcha api finishes loading (explicit render)
+				  function onRecaptchaLoaded() {
+				    console.log('reCAPTCHA API loaded — rendering widget now');
+				    try {
+				      // render invisible widget explicitly and set callback to onCaptchaSuccess
+				      recaptchaWidgetId = grecaptcha.render('recaptcha-container', {
+				        'sitekey': RECAPTCHA_SITE_KEY,
+				        'size': 'invisible',
+				        'callback': onCaptchaSuccess,
+				        'badge': 'inline'
+				      });
+				      console.log('reCAPTCHA rendered. widgetId=', recaptchaWidgetId);
+				      showToast('reCAPTCHA loaded', true);
+				    } catch (err) {
+				      console.error('reCAPTCHA render error:', err);
+				      showToast('reCAPTCHA render error (see console)', false);
+				    }
+				  }
+				
+				  // when user clicks submit
+				  function onSubmitContact(e) {
+				    e.preventDefault();
+				    console.log('onSubmitContact called');
+				    console.log('Form action:', document.getElementById('contactForm').action);
+				    console.log('Form target:', document.getElementById('contactForm').target);
+				
+				    // If debug bypass is enabled, just submit directly
+				    if (TEST_BYPASS) {
+				      console.log('TEST_BYPASS is ON — submitting directly to backend (no captcha)');
+				      showToast('Submitting (debug bypass)...');
+				      document.getElementById('contactForm').submit();
+				      return false;
+				    }
+				
+				    if (typeof grecaptcha === 'undefined') {
+				      console.error('grecaptcha is undefined — script failed to load or blocked (adblock/CSP?)');
+				      showToast('reCAPTCHA not loaded. Check console.', false);
+				      return false;
+				    }
+				    if (recaptchaWidgetId === null) {
+				      console.error('recaptchaWidgetId null — widget not rendered');
+				      showToast('reCAPTCHA not ready. Try reload.', false);
+				      return false;
+				    }
+				    // trigger invisible recaptcha
+				    console.log('calling grecaptcha.execute with widgetId=', recaptchaWidgetId);
+				    showToast('Running reCAPTCHA...');
+				    grecaptcha.execute(recaptchaWidgetId);
+				    return false;
+				  }
+				
+				  // called by reCAPTCHA when token obtained
 				  function onCaptchaSuccess(token) {
-				    // put token into hidden input and submit the form (if not already submitting)
+				    console.log('onCaptchaSuccess token length=', (token||'').length);
 				    document.getElementById('g-recaptcha-response').value = token;
-				    // the form was waiting on captcha, now actually submit (it was blocked by onSubmitContact)
+				    showToast('Captcha ok — submitting…');
+				    // extra debug logs before submit
+				    console.log('Submitting form now. action=', document.getElementById('contactForm').action);
+				    console.log('Form data preview:', {
+				      name: document.getElementById('name').value,
+				      email: document.getElementById('email').value,
+				      subject: document.getElementById('subject').value,
+				      messageLen: document.getElementById('message').value.length
+				    });
+				    // submit to hidden iframe
 				    document.getElementById('contactForm').submit();
 				  }
 				
-				  // Intercept submit: start reCAPTCHA flow instead of immediately posting
-				  function onSubmitContact(e) {
-				    // prevent normal submit; trigger invisible reCAPTCHA instead
-				    e.preventDefault();
-				    // call grecaptcha to run (invisible widget will call onCaptchaSuccess with token)
-				    if (typeof grecaptcha === 'undefined') {
-				      showToast('reCAPTCHA not loaded. Try again.', false);
-				      return false;
-				    }
-				    grecaptcha.execute();
-				    return false; // prevent immediate submit
-				  }
-				
-				  // Listen for message from iframe (Apps Script)
+				  // receives postMessage from Apps Script iframe
 				  window.addEventListener('message', function(event) {
-				    // OPTIONAL: check event.origin if you want extra security (compare with your script origin)
-				    let data = event.data || {};
-				    try {
-				      // if server sends a JSON-like object: {status:'ok'|'error', message:'...'}
-				      if (data.status === 'ok') {
-				        showToast(data.message || 'Message sent — thank you!', true);
-				        document.getElementById('contactForm').reset();
-				      } else {
-				        showToast(data.message || 'Submission failed. Please try again.', false);
-				      }
-				    } catch (err) {
-				      console.error('Message handling error', err);
+				    console.log('message event from iframe', event.origin, event.data);
+				    const data = event.data || {};
+				    if (data.status === 'ok') {
+				      showToast(data.message || 'Message sent — thank you!', true);
+				      document.getElementById('contactForm').reset();
+				    } else {
+				      showToast(data.message || 'Submission failed. See console.', false);
 				    }
 				  }, false);
-				
-				  // (Optional) timeout fallback: if iframe doesn't respond within X seconds, notify user.
-				  // You can improve UX by handling network errors similarly.
 				</script>
 
-            </div>
 
 			<!-- Additional Info Section -->
 			<div style="max-width: 1100px; margin: 4rem auto 2rem auto; padding: 2rem; background: rgba(255, 255, 255, 0.05); border-radius: 15px; border: 1px solid rgba(0, 246, 255, 0.2);">
@@ -340,6 +403,7 @@
 </body>
 
 </html>
+
 
 
 

@@ -152,60 +152,195 @@
                     </div>
                 </div>
 
-				<!-- Add this inside your page <head> or top of body -->
-				<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-				
-				<!-- Hidden iframe for form submission (prevents page navigation) -->
-				<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-				
-				<!-- Your contact form (replace action with your Apps Script URL) -->
-				<!-- load recaptcha with explicit render -->
-				<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoaded&render=explicit" async defer></script>
-				
-				<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-				
-				<form id="contactForm" class="contact-form" action="https://script.google.com/macros/s/AKfycbymyXPBGfWKVgjAnbEOHT-H8GyzNQup76te-3242r0Q22MWtV_BPat7myciJAAB-6dN/exec" method="POST" target="hidden_iframe" onsubmit="return onSubmitContact(event)">
-				  <!-- form fields (same as before) -->
-				  <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
-				  <div id="recaptcha-container" style="display:inline-block"></div>
-				  <button type="submit" class="cta-button"><i class="fas fa-paper-plane"></i> Send Message</button>
-				</form>
-				
-				<script>
-				  const RECAPTCHA_SITE_KEY = '6Lfy6e0rAAAAAL9QvJ-LObXpf1njThHC4h-vSS3A';
-				  let recaptchaWidgetId = null;
-				
-				  function onRecaptchaLoaded() {
-				    recaptchaWidgetId = grecaptcha.render('recaptcha-container', {
-				      'sitekey': RECAPTCHA_SITE_KEY,
-				      'size': 'invisible',
-				      'callback': onCaptchaSuccess
-				    });
-				  }
-				
-				  function onSubmitContact(e) {
-				    e.preventDefault();
-				    if (!recaptchaWidgetId) { alert('reCAPTCHA not ready. Reload page.'); return false; }
-				    grecaptcha.execute(recaptchaWidgetId);
-				    return false;
-				  }
-				
-				  function onCaptchaSuccess(token) {
-				    document.getElementById('g-recaptcha-response').value = token;
-				    document.getElementById('contactForm').submit();
-				  }
-				
-				  // receive server response
-				  window.addEventListener('message', function(event) {
-				    const data = event.data || {};
-				    if (data.status === 'ok') {
-				      alert(data.message || 'Message sent.');
-				      document.getElementById('contactForm').reset();
-				    } else {
-				      alert(data.message || 'Submission failed.');
-				    }
-				  }, false);
-				</script>
+				<!-- Contact Form -->
+				<!-- Put this where your form was. It is self-contained. -->
+			<!-- Load reCAPTCHA API (explicit render) -->
+			<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoaded&render=explicit" async defer></script>
+			
+			<!-- hidden iframe (ensure name matches target) -->
+			<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;width:0;height:0;border:0;margin:0;padding:0;" src="about:blank"></iframe>
+			
+			<!-- Contact form -->
+			<form id="contactForm" class="contact-form" method="POST" target="hidden_iframe" onsubmit="return onSubmitContact(event)">
+			  <div style="text-align: center; margin-bottom: 1.5rem;">
+			    <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Send a Message</h3>
+			    <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">Fill out the form below and I'll get back to you soon</p>
+			  </div>
+			
+			  <div class="form-group">
+			    <label for="name">Full Name *</label>
+			    <input type="text" id="name" name="name" placeholder="John Doe" required>
+			  </div>
+			
+			  <div class="form-group">
+			    <label for="email">Email Address *</label>
+			    <input type="email" id="email" name="email" placeholder="john@example.com" required>
+			  </div>
+			
+			  <div class="form-group">
+			    <label for="subject">Subject *</label>
+			    <input type="text" id="subject" name="subject" placeholder="Research Collaboration Opportunity" required>
+			  </div>
+			
+			  <div class="form-group">
+			    <label for="message">Message *</label>
+			    <textarea id="message" name="message" rows="6" placeholder="Tell me about your inquiry..." required></textarea>
+			  </div>
+			
+			  <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+			
+			  <!-- container for invisible captcha -->
+			  <div id="recaptcha-container" style="display:inline-block"></div>
+			
+			  <button type="submit" class="cta-button"><i class="fas fa-paper-plane"></i> Send Message</button>
+			</form>
+			
+			<!-- tiny toast -->
+			<div id="contactToast" style="position: fixed; right: 1rem; bottom: 1rem; display:none; background:#222; color:#fff; padding:0.8rem 1rem; border-radius:6px; z-index:9999;"></div>
+			
+			<script>
+			(function(){
+			  // CONFIG: set your site key and Apps Script URL
+			  const RECAPTCHA_SITE_KEY = '6Lfy6e0rAAAAAL9QvJ-LObXpf1njThHC4h-vSS3A';
+			  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymyXPBGfWKVgjAnbEOHT-H8GyzNQup76te-3242r0Q22MWtV_BPat7myciJAAB-6dN/exec';
+			
+			  // ensure action points to server
+			  const form = document.getElementById('contactForm');
+			  form.action = APPS_SCRIPT_URL;
+			  form.target = 'hidden_iframe';
+			
+			  // keep a snapshot of original form HTML so we can restore on error
+			  const originalFormHTML = form.innerHTML;
+			
+			  function showToast(msg, ok=true){
+			    const t = document.getElementById('contactToast');
+			    t.style.background = ok ? '#122' : '#611';
+			    t.innerText = msg;
+			    t.style.display = 'block';
+			    clearTimeout(t._hideTO);
+			    t._hideTO = setTimeout(()=> t.style.display = 'none', 4500);
+			  }
+			
+			  // reCAPTCHA widget
+			  let recaptchaWidgetId = null;
+			  window.onRecaptchaLoaded = function onRecaptchaLoaded(){
+			    console.log('reCAPTCHA loaded — rendering widget');
+			    try {
+			      recaptchaWidgetId = grecaptcha.render('recaptcha-container', {
+			        'sitekey': RECAPTCHA_SITE_KEY,
+			        'size': 'invisible',
+			        'callback': onCaptchaSuccess
+			      });
+			      console.log('rendered recaptcha widgetId=', recaptchaWidgetId);
+			    } catch (err) {
+			      console.error('reCAPTCHA render error', err);
+			      showToast('reCAPTCHA failed to load. Try disabling adblock.', false);
+			    }
+			  };
+			
+			  // submit handler
+			  window.onSubmitContact = function onSubmitContact(e){
+			    e.preventDefault();
+			    console.log('onSubmitContact called; action=', form.action, 'target=', form.target);
+			
+			    // defensive checks to avoid navigation-away:
+			    if (!form.target || form.target !== 'hidden_iframe'){
+			      console.warn('Form target missing or incorrect — setting it to hidden_iframe to avoid navigating away.');
+			      form.target = 'hidden_iframe';
+			    }
+			    if (!document.getElementById('hidden_iframe')){
+			      console.warn('hidden_iframe not found — creating one dynamically.');
+			      const iframe = document.createElement('iframe');
+			      iframe.name = 'hidden_iframe';
+			      iframe.id = 'hidden_iframe';
+			      iframe.style.display = 'none';
+			      iframe.src = 'about:blank';
+			      document.body.appendChild(iframe);
+			      form.target = 'hidden_iframe';
+			    }
+			
+			    // Trigger captcha
+			    if (typeof grecaptcha === 'undefined' || recaptchaWidgetId === null) {
+			      console.error('grecaptcha not ready.');
+			      showToast('reCAPTCHA not ready. Reload the page.', false);
+			      return false;
+			    }
+			    showToast('Running reCAPTCHA…');
+			    grecaptcha.execute(recaptchaWidgetId);
+			    return false;
+			  };
+			
+			  // reCAPTCHA callback
+			  window.onCaptchaSuccess = function onCaptchaSuccess(token){
+			    console.log('onCaptchaSuccess token length=', token.length);
+			    document.getElementById('g-recaptcha-response').value = token;
+			
+			    // Set a short-lived safeguard: before submitting, set a data attribute that prevents double navigation
+			    form.dataset.submitting = '1';
+			
+			    // Submit into hidden iframe (this should NOT navigate the main window)
+			    try {
+			      form.submit();
+			      showToast('Submitting...');
+			      // set a timer: if the iframe hasn't posted back within X seconds, restore form and warn user
+			      window._contactTimeout = setTimeout(() => {
+			        showToast('No response from server — please try again.', false);
+			        // restore form DOM to be safe (will not recreate handlers since form is same element)
+			        if (form.innerHTML.trim() === '') {
+			          form.innerHTML = originalFormHTML;
+			        }
+			      }, 15000); // 15s
+			    } catch (err) {
+			      console.error('Form.submit() threw', err);
+			      showToast('Submit failed locally. Check console.', false);
+			      // restore
+			      if (form.innerHTML.trim() === '') form.innerHTML = originalFormHTML;
+			    }
+			  };
+			
+			  // message listener (from iframe)
+			  window.addEventListener('message', function(event){
+			    console.log('message event from iframe', event.origin, event.data);
+			    // NOTE: we intentionally do NOT write event.data directly into the DOM.
+			    // Only show controlled messages to the user.
+			    try {
+			      const data = event.data || {};
+			      clearTimeout(window._contactTimeout);
+			      if (data.status === 'ok') {
+			        showToast(data.message || 'Message sent — thank you!', true);
+			        // clear the token to avoid reuse
+			        document.getElementById('g-recaptcha-response').value = '';
+			        // clear fields safely
+			        form.querySelectorAll('input[type="text"], input[type="email"], textarea').forEach(el => el.value = '');
+			      } else {
+			        // For errors: show message and restore the form if it was damaged
+			        showToast(data.message || 'Submission failed. Please check the console.', false);
+			        // restore if innerHTML empty
+			        if (form.innerHTML.trim() === '') form.innerHTML = originalFormHTML;
+			      }
+			      // clear submitting flag
+			      delete form.dataset.submitting;
+			    } catch (err) {
+			      console.error('Error handling message from iframe', err);
+			      showToast('Unexpected response. See console.', false);
+			      if (form.innerHTML.trim() === '') form.innerHTML = originalFormHTML;
+			    }
+			  }, false);
+			
+			  // Extra safety: if window unload would happen, block if we think submitting
+			  window.addEventListener('beforeunload', function(e){
+			    if (form && form.dataset.submitting === '1') {
+			      // prefer not to block, but give a hint if navigation attempts while submitting
+			      const msg = 'A submission is in progress. Are you sure you want to leave?';
+			      (e || window.event).returnValue = msg;
+			      return msg;
+			    }
+			  });
+			})();
+			</script>
+
+
+
 
 
 
@@ -289,6 +424,7 @@
 </body>
 
 </html>
+
 
 
 

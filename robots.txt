@@ -1,0 +1,10 @@
+# robots.txt for abhaskumarsinha.github.io
+
+User-agent: *
+Disallow: /github/workflows/
+Disallow: /blog-template/
+Disallow: /images/
+Disallow: /scripts/
+Disallow: /blogs/json/
+
+Sitemap: https://abhaskumarsinha.github.io/sitemap.xml
